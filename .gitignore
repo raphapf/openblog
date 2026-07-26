@@ -1,0 +1,9 @@
+dist/
+.output/
+node_modules/
+.astro/
+.DS_Store
+.firecrawl/
+*.log
+.env
+.env.production

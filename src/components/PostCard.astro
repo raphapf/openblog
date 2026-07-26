@@ -1,0 +1,58 @@
+---
+import PostVisual from './PostVisual.astro';
+import { shortDateFormatter } from '../site';
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  post: CollectionEntry<'blog'>;
+  /** Heading level so the card fits the surrounding document outline. */
+  as?: 'h2' | 'h3';
+}
+
+const { post, as: Tag = 'h3' } = Astro.props;
+const { title, description, pubDate, category, topics, readingTime } = post.data;
+
+const href = `/blog/${post.id}`;
+const iso = pubDate.toISOString();
+const searchIndex = [title, description, category, ...topics].join(' ').toLowerCase();
+---
+
+<article
+  class="post-card group relative flex flex-col"
+  data-post
+  data-category={category}
+  data-title={title.toLowerCase()}
+  data-date={iso}
+  data-search={searchIndex}
+>
+  <a href={href} class="absolute inset-0 z-10" aria-label={title}></a>
+
+  <div class="post-card__media overflow-hidden">
+    <PostVisual
+      slug={post.id}
+      class="transition-transform duration-500 ease-out group-hover:scale-[1.03]"
+    />
+  </div>
+
+  <div class="post-card__body mt-4 flex flex-1 flex-col">
+    <div class="flex items-center gap-2.5 text-[0.75rem] text-faint">
+      <time datetime={iso}>{shortDateFormatter.format(pubDate)}</time>
+      <span class="h-2.5 w-px bg-line"></span>
+      <span>{readingTime} Min.</span>
+    </div>
+
+    <Tag
+      class="post-card__title mt-2.5 text-[1.0625rem] leading-[1.28] font-medium tracking-[-0.018em] text-balance"
+    >
+      <span class="link-wipe">{title}</span>
+    </Tag>
+
+    <p class="post-card__excerpt mt-2 line-clamp-2 text-[0.9375rem] leading-relaxed text-muted">
+      {description}
+    </p>
+
+    <div class="mt-auto pt-4">
+      <span class="eyebrow text-faint">{category}</span>
+    </div>
+  </div>
+</article>

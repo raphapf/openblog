@@ -1,0 +1,235 @@
+---
+import PostCard from './PostCard.astro';
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  posts: CollectionEntry<'blog'>[];
+  categories: readonly string[];
+}
+
+const { posts, categories } = Astro.props;
+
+const counts = new Map<string, number>();
+for (const p of posts) {
+  counts.set(p.data.category, (counts.get(p.data.category) ?? 0) + 1);
+}
+
+const tabs = [
+  { label: 'Alle', value: 'all', count: posts.length },
+  ...categories
+    .filter((c) => counts.has(c))
+    .map((c) => ({ label: c, value: c, count: counts.get(c) ?? 0 })),
+];
+---
+
+<section id="beitraege" data-browser data-view="grid" class="scroll-mt-20">
+  {/* Category tabs — the horizontal rail from the reference layout. */}
+  <div class="border-b border-line">
+    <div class="mx-auto max-w-[1400px] px-6 lg:px-10">
+      <div
+        class="-mb-px flex gap-7 overflow-x-auto pb-px [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+        role="tablist"
+        aria-label="Kategorien"
+      >
+        {
+          tabs.map((tab, i) => (
+            <button
+              type="button"
+              role="tab"
+              data-cat-tab
+              data-value={tab.value}
+              aria-selected={i === 0 ? 'true' : 'false'}
+              class="group relative shrink-0 border-b-2 border-transparent py-4 text-[0.9375rem] whitespace-nowrap text-muted transition-colors hover:text-fg aria-selected:border-fg aria-selected:text-fg"
+            >
+              {tab.label}
+              <span class="ml-1.5 align-super text-[0.6875rem] font-medium text-faint tabular-nums">
+                {tab.count}
+              </span>
+            </button>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+
+  {/* Toolbar: search, sort, view switch. */}
+  <div class="mx-auto max-w-[1400px] px-6 lg:px-10">
+    <div
+      class="flex flex-col gap-4 border-b border-line py-5 md:flex-row md:items-center md:justify-between"
+    >
+      <div class="relative w-full md:max-w-xs">
+        <svg
+          viewBox="0 0 20 20"
+          class="pointer-events-none absolute top-1/2 left-3 size-4 -translate-y-1/2 text-faint"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.25"
+          aria-hidden="true"
+        >
+          <circle cx="8.75" cy="8.75" r="5.25"></circle>
+          <path d="m12.75 12.75 4 4" stroke-linecap="round"></path>
+        </svg>
+        <input
+          type="search"
+          data-search-input
+          placeholder="Beiträge durchsuchen"
+          aria-label="Beiträge durchsuchen"
+          class="h-10 w-full border border-line bg-transparent pr-3 pl-9 text-[0.9375rem] text-fg transition-colors placeholder:text-faint focus:border-line-strong focus:outline-none"
+        />
+      </div>
+
+      <div class="flex items-center gap-4">
+        <label class="flex items-center gap-2 text-[0.8125rem] text-muted">
+          <span class="hidden sm:inline">Sortieren</span>
+          <select
+            data-sort-select
+            aria-label="Sortierung"
+            class="h-10 border border-line bg-transparent px-3 text-[0.9375rem] text-fg transition-colors focus:border-line-strong focus:outline-none"
+          >
+            <option value="newest">Neueste</option>
+            <option value="oldest">Älteste</option>
+            <option value="az">A – Z</option>
+            <option value="za">Z – A</option>
+          </select>
+        </label>
+
+        <div class="flex border border-line" role="group" aria-label="Ansicht">
+          <button
+            type="button"
+            data-view-btn
+            data-value="grid"
+            aria-pressed="true"
+            class="grid size-10 place-items-center text-muted transition-colors hover:text-fg aria-pressed:bg-fg aria-pressed:text-bg"
+            aria-label="Rasteransicht"
+            title="Raster"
+          >
+            <svg viewBox="0 0 20 20" class="size-4" fill="currentColor" aria-hidden="true">
+              <rect x="3" y="3" width="6" height="6"></rect>
+              <rect x="11" y="3" width="6" height="6"></rect>
+              <rect x="3" y="11" width="6" height="6"></rect>
+              <rect x="11" y="11" width="6" height="6"></rect>
+            </svg>
+          </button>
+          <button
+            type="button"
+            data-view-btn
+            data-value="list"
+            aria-pressed="false"
+            class="grid size-10 place-items-center border-l border-line text-muted transition-colors hover:text-fg aria-pressed:bg-fg aria-pressed:text-bg"
+            aria-label="Listenansicht"
+            title="Liste"
+          >
+            <svg viewBox="0 0 20 20" class="size-4" fill="currentColor" aria-hidden="true">
+              <rect x="3" y="4" width="14" height="1.6"></rect>
+              <rect x="3" y="9.2" width="14" height="1.6"></rect>
+              <rect x="3" y="14.4" width="14" height="1.6"></rect>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {/* Results */}
+  <div class="mx-auto max-w-[1400px] px-6 pt-12 pb-24 lg:px-10 lg:pb-32">
+    <div class="post-list" data-post-list>
+      {posts.map((post) => <PostCard post={post} />)}
+    </div>
+
+    <p data-empty hidden class="py-24 text-center text-[0.9375rem] text-muted">
+      Keine Beiträge gefunden. <button
+        type="button"
+        data-reset
+        class="link-wipe text-fg">Filter zurücksetzen</button
+      >
+    </p>
+  </div>
+</section>
+
+<script>
+  type SortKey = 'newest' | 'oldest' | 'az' | 'za';
+
+  document.querySelectorAll<HTMLElement>('[data-browser]').forEach((root) => {
+    const list = root.querySelector<HTMLElement>('[data-post-list]');
+    const cards = Array.from(root.querySelectorAll<HTMLElement>('[data-post]'));
+    const tabs = Array.from(root.querySelectorAll<HTMLButtonElement>('[data-cat-tab]'));
+    const viewBtns = Array.from(root.querySelectorAll<HTMLButtonElement>('[data-view-btn]'));
+    const search = root.querySelector<HTMLInputElement>('[data-search-input]');
+    const sort = root.querySelector<HTMLSelectElement>('[data-sort-select]');
+    const empty = root.querySelector<HTMLElement>('[data-empty]');
+    const reset = root.querySelector<HTMLButtonElement>('[data-reset]');
+
+    if (!list) return;
+
+    let category = 'all';
+    let query = '';
+
+    function apply() {
+      const q = query.trim().toLowerCase();
+      let visible = 0;
+
+      for (const card of cards) {
+        const matchesCat = category === 'all' || card.dataset.category === category;
+        const matchesQuery = !q || (card.dataset.search ?? '').includes(q);
+        const show = matchesCat && matchesQuery;
+        card.hidden = !show;
+        if (show) visible++;
+      }
+
+      if (empty) empty.hidden = visible > 0;
+      list!.hidden = visible === 0;
+    }
+
+    function applySort(key: SortKey) {
+      const sorted = [...cards].sort((a, b) => {
+        switch (key) {
+          case 'oldest':
+            return (a.dataset.date ?? '').localeCompare(b.dataset.date ?? '');
+          case 'az':
+            return (a.dataset.title ?? '').localeCompare(b.dataset.title ?? '', 'de');
+          case 'za':
+            return (b.dataset.title ?? '').localeCompare(a.dataset.title ?? '', 'de');
+          case 'newest':
+          default:
+            return (b.dataset.date ?? '').localeCompare(a.dataset.date ?? '');
+        }
+      });
+      for (const card of sorted) list!.appendChild(card);
+    }
+
+    tabs.forEach((tab) =>
+      tab.addEventListener('click', () => {
+        category = tab.dataset.value ?? 'all';
+        tabs.forEach((t) => t.setAttribute('aria-selected', String(t === tab)));
+        apply();
+      }),
+    );
+
+    viewBtns.forEach((btn) =>
+      btn.addEventListener('click', () => {
+        const view = btn.dataset.value ?? 'grid';
+        root.dataset.view = view;
+        viewBtns.forEach((b) => b.setAttribute('aria-pressed', String(b === btn)));
+      }),
+    );
+
+    let debounce: number | undefined;
+    search?.addEventListener('input', () => {
+      window.clearTimeout(debounce);
+      debounce = window.setTimeout(() => {
+        query = search.value;
+        apply();
+      }, 120);
+    });
+
+    sort?.addEventListener('change', () => applySort(sort.value as SortKey));
+
+    reset?.addEventListener('click', () => {
+      category = 'all';
+      query = '';
+      if (search) search.value = '';
+      tabs.forEach((t, i) => t.setAttribute('aria-selected', String(i === 0)));
+      apply();
+    });
+  });
+</script>

@@ -1,0 +1,34 @@
+---
+interface Props {
+  /** Rendered height of the wordmark in px. Width follows the 1775:385 ratio. */
+  height?: number;
+  class?: string;
+}
+
+const { height = 22, class: className = '' } = Astro.props;
+const ratio = 1775 / 385;
+const width = Math.round(height * ratio);
+---
+
+{/* Two files, swapped by theme — the wordmark is solid ink, so it needs both. */}
+<span class:list={['inline-block shrink-0', className]} style={`height:${height}px`}>
+  <img
+    src="/logo/openblog-black.png"
+    alt="OpenBlog"
+    width={width}
+    height={height}
+    style={`height:${height}px;width:${width}px`}
+    class="block max-w-none dark:hidden"
+    decoding="async"
+  />
+  <img
+    src="/logo/openblog-white.png"
+    alt=""
+    aria-hidden="true"
+    width={width}
+    height={height}
+    style={`height:${height}px;width:${width}px`}
+    class="hidden max-w-none dark:block"
+    decoding="async"
+  />
+</span>

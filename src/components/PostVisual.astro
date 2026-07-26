@@ -1,0 +1,177 @@
+---
+/**
+ * Placeholder artwork for posts until real images exist.
+ * Deterministic per slug, pure black and white, drawn as inline SVG so it
+ * costs no requests and inverts with the theme.
+ *
+ * Eight base forms, each parameterised by a second seed — two posts that land
+ * on the same form still come out visibly different.
+ */
+interface Props {
+  slug: string;
+  class?: string;
+  /** Aspect ratio of the frame. */
+  ratio?: 'square' | 'wide' | 'tall';
+}
+
+const { slug, class: className = '', ratio = 'square' } = Astro.props;
+
+function hash(s: string) {
+  let h = 2166136261;
+  for (let i = 0; i < s.length; i++) {
+    h ^= s.charCodeAt(i);
+    h = Math.imul(h, 16777619);
+  }
+  return h >>> 0;
+}
+
+const h = hash(slug);
+// Unsigned shifts — `>>` is signed and would hand negative modifiers to the
+// geometry below, which silently drops shapes.
+const variant = h % 8;
+const a = (h >>> 3) % 5; // primary modifier
+const b = (h >>> 7) % 4; // secondary modifier
+
+const aspect = {
+  square: 'aspect-square',
+  wide: 'aspect-[16/10]',
+  tall: 'aspect-[4/5]',
+}[ratio];
+
+const range = (n: number) => Array.from({ length: n }, (_, i) => i);
+
+// Which corner a corner-anchored form sits in.
+const corners = [
+  { cx: 0, cy: 100 },
+  { cx: 100, cy: 100 },
+  { cx: 100, cy: 0 },
+  { cx: 0, cy: 0 },
+];
+const corner = corners[b];
+---
+
+<div
+  class:list={['relative overflow-hidden bg-surface text-fg', aspect, className]}
+  aria-hidden="true"
+>
+  <svg
+    viewBox="0 0 100 100"
+    preserveAspectRatio="xMidYMid slice"
+    class="absolute inset-0 size-full"
+    fill="none"
+    stroke="currentColor"
+  >
+    {
+      variant === 0 && (
+        <g stroke-width="0.5">
+          {range(9 + a).map((i) => (
+            /* Outermost ring always lands near the frame, whatever the count. */
+            <circle cx={46 + b * 3} cy={48 + a * 2} r={4 + (i * 44) / (8 + a)} />
+          ))}
+        </g>
+      )
+    }
+
+    {
+      variant === 1 && (
+        <g stroke-width="0.5" transform={`rotate(${b * 11} 50 50)`}>
+          {range(7 + a).map((i) => {
+            /* Step scales with the count so the innermost square never
+               crosses the centre and inverts. */
+            const inset = 6 + (i * 40) / (7 + a);
+            return <rect x={inset} y={inset} width={100 - inset * 2} height={100 - inset * 2} />;
+          })}
+        </g>
+      )
+    }
+
+    {
+      variant === 2 && (
+        <g stroke-width="0.45">
+          {range(40).map((i) => {
+            const step = 4 + a;
+            const skew = b % 2 === 0 ? 60 : -60;
+            return (
+              <line x1={-60 + i * step} y1="-10" x2={-60 + i * step + skew} y2="110" />
+            );
+          })}
+        </g>
+      )
+    }
+
+    {
+      variant === 3 && (
+        <g fill="currentColor" stroke="none">
+          {range(9).map((row) =>
+            range(9).map((col) => {
+              // Dot size ramps along one of four directions.
+              const t = [col, row, 8 - col, col + row][b] / (b === 3 ? 16 : 8);
+              return <circle cx={10 + col * 10} cy={10 + row * 10} r={0.6 + t * 4} />;
+            }),
+          )}
+        </g>
+      )
+    }
+
+    {
+      variant === 4 && (
+        <g>
+          <circle
+            cx={corner.cx}
+            cy={corner.cy}
+            r={62 + a * 6}
+            fill="currentColor"
+            stroke="none"
+          />
+          <circle cx={100 - corner.cx} cy={100 - corner.cy} r={16 + a * 3} stroke-width="0.6" />
+        </g>
+      )
+    }
+
+    {
+      variant === 5 && (
+        <g>
+          {range(18).map((i) => (
+            <line
+              x1="6"
+              y1={8 + i * 5}
+              x2="94"
+              y2={8 + i * 5}
+              stroke-width={0.35 + ((i * (a + 2) + b) % 7) * 0.45}
+            />
+          ))}
+        </g>
+      )
+    }
+
+    {
+      variant === 6 && (
+        <g fill="currentColor" stroke="none">
+          {range(14).map((i) => {
+            /* 2/3/4 are all coprime to 5, so the widths never collapse to one. */
+            const w = 1 + ((i * ((a % 3) + 2) + b) % 5) * 1.3;
+            return <rect x={5 + i * 6.6} y="6" width={w} height="88" />;
+          })}
+        </g>
+      )
+    }
+
+    {
+      variant === 7 && (
+        <g stroke-width="0.55">
+          {range(7).map((row) =>
+            range(7).map((col) => {
+              const x = 14 + col * 12;
+              const y = 14 + row * 12;
+              const s = 2 + ((row * 3 + col + a) % 4) * 1.3;
+              return <path d={`M${x - s} ${y}h${s * 2}M${x} ${y - s}v${s * 2}`} />;
+            }),
+          )}
+        </g>
+      )
+    }
+  </svg>
+
+  {/* A hairline frame keeps every tile reading as a deliberate object. */}
+  <div class="pointer-events-none absolute inset-0 border border-line"></div>
+</div>
