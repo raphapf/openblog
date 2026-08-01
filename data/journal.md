@@ -8,6 +8,7 @@ Format: `JJJJ-MM-TT · <slug> · Thema in fünf Worten · Selbsteinschätzung od
 
 ## Läufe
 
+2026-08-01 · bunkerland-schweiz · Zivilschutz, Schutzräume, Kalter Krieg, Sanierung 2026 · zweiter Lauf, Thema mit offiziellen Zahlen und Historikerin belegt, Unsicherheit über Nutzen bewusst offengelassen
 2026-08-01 · wer-traegt-das-milizsystem · Milizsystem, Nachwuchs, Gemeinden, Feuerwehr, Freiwilligkeit · erster Lauf, Thema mit Zahlen und Beispiel belegt, Nationalfeiertag als Anlass genutzt statt als Thema
 
 ## Ideen
