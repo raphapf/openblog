@@ -54,8 +54,8 @@ node scripts/openrouter.mjs models --images         # Modelle mit Bildausgabe
 ```
 
 Voreingestellt sind `anthropic/claude-sonnet-5` für Text und
-`google/gemini-3-pro-image` für Bilder — beides erprobt, die Belege und die
-Kosten stehen in [docs/modelle.md](docs/modelle.md). Überschreiben über
+`google/gemini-3.1-flash-lite-image` für Bilder — beides erprobt, die Belege und
+die Kosten stehen in [docs/modelle.md](docs/modelle.md). Überschreiben über
 `OPENROUTER_TEXT_MODEL` und `OPENROUTER_IMAGE_MODEL` in `.env`.
 
 Der System-Prompt des schreibenden Agenten steht in

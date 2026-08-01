@@ -18,7 +18,8 @@
  *   node scripts/dither.mjs roh.png public/blog/<slug>.png --mode atkinson
  */
 
-import { writeFileSync } from 'node:fs';
+import { writeFileSync, unlinkSync, existsSync } from 'node:fs';
+import { execFileSync } from 'node:child_process';
 import { loadEnv, makeScrub, requireKey, parseArgs } from './env.mjs';
 
 const BASE = 'https://openrouter.ai/api/v1';
@@ -31,7 +32,7 @@ const scrub = makeScrub(KEY);
 
 // Gewählt nach einem Vergleich, nicht nach Bauchgefühl — siehe docs/modelle.md.
 const TEXT_MODEL = env.OPENROUTER_TEXT_MODEL || 'anthropic/claude-sonnet-5';
-const IMAGE_MODEL = env.OPENROUTER_IMAGE_MODEL || 'google/gemini-3-pro-image';
+const IMAGE_MODEL = env.OPENROUTER_IMAGE_MODEL || 'google/gemini-3.1-flash-lite-image';
 
 async function request(path, init = {}) {
   const res = await fetch(`${BASE}${path}`, {
@@ -214,6 +215,33 @@ function extractImage(body) {
   return { mime: m[1], buffer: Buffer.from(m[2], 'base64') };
 }
 
+/**
+ * Wandelt ein Bild nach PNG um. dither.mjs liest nur PNG, und mehrere
+ * Bildmodelle liefern JPEG — ohne diesen Schritt bräche der nächtliche Lauf.
+ *
+ * Die Reihenfolge deckt macOS (sips) und die üblichen Linux-Läufer ab, auf
+ * denen ImageMagick oder ffmpeg vorinstalliert sind. Gibt true zurück, wenn
+ * die Umwandlung geklappt hat.
+ */
+function zuPng(quelle, ziel) {
+  const werkzeuge = [
+    ['sips', ['-s', 'format', 'png', quelle, '--out', ziel]],
+    ['magick', [quelle, ziel]],
+    ['convert', [quelle, ziel]],
+    ['ffmpeg', ['-y', '-loglevel', 'error', '-i', quelle, ziel]],
+  ];
+
+  for (const [befehl, argumente] of werkzeuge) {
+    try {
+      execFileSync(befehl, argumente, { stdio: 'ignore' });
+      if (existsSync(ziel)) return befehl;
+    } catch {
+      // Werkzeug fehlt oder scheitert — das nächste versuchen.
+    }
+  }
+  return null;
+}
+
 async function image(prompt, opts) {
   if (!prompt) {
     console.error(
@@ -266,32 +294,38 @@ async function image(prompt, opts) {
     found.mime = res.headers.get('content-type') ?? 'image/png';
   }
 
-  // Manche Modelle liefern JPEG, auch wenn das Ziel auf .png endet. Die Endung
-  // an den tatsächlichen Inhalt anpassen, statt JPEG-Bytes in eine .png-Datei
-  // zu schreiben — dither.mjs würde sie sonst als defektes PNG ablehnen.
-  const echteEndung = found.mime === 'image/png' ? '.png' : found.mime === 'image/webp' ? '.webp' : '.jpg';
-  const ziel = new RegExp(`\\${echteEndung}$`, 'i').test(out)
-    ? out
-    : out.replace(/\.[^.]+$/, '') + echteEndung;
-
-  writeFileSync(ziel, found.buffer);
   const kb = Math.round(found.buffer.length / 1024);
   const kosten = body?.usage?.cost;
-  console.log(
-    `${ziel} · ${found.mime} · ${kb} kB` +
-      (kosten != null ? ` · ${Number(kosten).toFixed(4)} $` : ''),
-  );
+  const preis = kosten != null ? ` · ${Number(kosten).toFixed(4)} $` : '';
 
-  if (ziel !== out) {
-    const png = ziel.replace(/\.[^.]+$/, '') + '.png';
-    console.error(`\nDas Modell lieferte ${found.mime}, nicht PNG. dither.mjs liest nur PNG:`);
-    console.error(`  sips -s format png ${ziel} --out ${png}`);
-    console.error('JPEG ist verlustbehaftet — seine Artefakte werden beim Dithern zu Rauschen.');
-    return;
+  // Das voreingestellte Modell liefert JPEG. Statt die Endung anzupassen und
+  // den Ablauf zu unterbrechen, wird gleich hier nach PNG umgewandelt — das
+  // Ziel heisst danach so, wie es der Aufruf verlangt hat.
+  const willPng = /\.png$/i.test(out);
+  if (found.mime !== 'image/png' && willPng) {
+    const zwischen = out.replace(/\.png$/i, '') + '.roh.jpg';
+    writeFileSync(zwischen, found.buffer);
+    const werkzeug = zuPng(zwischen, out);
+
+    if (!werkzeug) {
+      console.log(`${zwischen} · ${found.mime} · ${kb} kB${preis}`);
+      console.error(
+        `\nDas Modell lieferte ${found.mime}, und keines der Werkzeuge zum` +
+          '\nUmwandeln ist vorhanden (sips, magick, convert, ffmpeg).' +
+          '\ndither.mjs liest nur PNG — eines davon installieren.',
+      );
+      process.exit(1);
+    }
+
+    unlinkSync(zwischen);
+    console.log(`${out} · ${found.mime} → PNG via ${werkzeug} · ${kb} kB${preis}`);
+  } else {
+    writeFileSync(out, found.buffer);
+    console.log(`${out} · ${found.mime} · ${kb} kB${preis}`);
   }
 
   console.error('\nWeiter nach docs/bildsprache.md, Schritt 3:');
-  console.error(`  node scripts/dither.mjs ${ziel} public/blog/<slug>.png --mode atkinson`);
+  console.error(`  node scripts/dither.mjs ${out} public/blog/<slug>.png --mode atkinson`);
 }
 
 // ── Aufruf ───────────────────────────────────────────────────────────────────

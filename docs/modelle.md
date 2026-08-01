@@ -10,11 +10,27 @@ nicht aus Ranglisten übernommen.
 | Aufgabe | Modell | Kosten je Beitrag |
 |---|---|---|
 | Recherche und Text | `anthropic/claude-sonnet-5` | ~0.12 $ |
-| Bild | `google/gemini-3-pro-image` | ~0.14 $ |
+| Bild | `google/gemini-3.1-flash-lite-image` | ~0.034 $ |
 
-**Rund 0.26 $ pro Beitrag, bei einem Beitrag täglich also etwa 8 $ im Monat.**
+**Rund 0.15 $ pro Beitrag, bei einem Beitrag täglich also etwa 4.60 $ im Monat.**
 Beides steht als Voreinstellung in `scripts/openrouter.mjs` und lässt sich über
 `.env` überschreiben.
+
+Das Bildmodell ist das günstigste im Test und war zunächst wegen zweier Mängel
+zurückgestellt. Beide sind inzwischen behoben, nicht umgangen:
+
+**Zahlen im Bild** — `no text` allein genügt diesem Modell nicht. Mit dem
+ausbuchstabierten Schriftbann aus [Abschnitt 9 der Bildsprache](bildsprache.md)
+lieferte es in zwei von zwei Läufen ein Bild ohne eine einzige Ziffer. Die
+Sichtprüfung in Schritt 4 des Ablaufs bleibt trotzdem Pflicht.
+
+**JPEG statt PNG** — `openrouter.mjs image` wandelt jetzt selbsttätig um, sobald
+das Ziel auf `.png` endet. Es versucht der Reihe nach `sips`, `magick`,
+`convert` und `ffmpeg`, damit derselbe Aufruf auf macOS und auf einem
+Linux-Läufer funktioniert. Der Umweg über JPEG bleibt ein Qualitätsverlust: Die
+Kompressionsartefakte sitzen dort, wo die feine Schraffur sitzt. Bei einem
+Motiv, dessen Ergebnis nicht überzeugt, ist ein Lauf mit `--model
+google/gemini-3-pro-image` die erste Gegenprobe.
 
 ---
 
@@ -45,6 +61,13 @@ oder Weiss zwingt, ist das der falsche Ausgangspunkt.
 Gegen `gpt-5.4-image-2` sprach nur der Preis: 60 % teurer bei gleichwertigem
 Ergebnis. Es zeichnet etwas mehr Punktschraffur, was nach dem Dithern minimal
 grauer wirkt. Als Zweitmeinung taugt es, wenn ein Motiv bei Gemini nicht sitzt.
+
+**Nachtrag.** Beide Mängel der Flash-Modelle liessen sich beheben — die
+Beschriftung durch einen deutlicheren Prompt, das JPEG durch eine Umwandlung im
+Skript. Damit fiel die Entscheidung auf `flash-lite`: ein Viertel des Preises
+bei einer Zeichenqualität, die im Vergleich niemand als schwächer erkannt
+hätte. Der Vergleich oben bleibt trotzdem stehen, weil er zeigt, worauf bei
+einem Modellwechsel zu achten ist.
 
 Nicht getestet, weil nicht über OpenRouter erreichbar: FLUX und Midjourney.
 Beide gelten für Illustration als stark. Wer sie will, braucht einen zweiten

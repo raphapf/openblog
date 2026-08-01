@@ -111,9 +111,15 @@ austauschbar aussehen.
 
 Stattdessen drei Register:
 
-**Apparate.** Werkzeuge und Mechanik, isoliert freigestellt: Setzkasten,
-Druckerpresse, Zirkel, Fernsprechvermittlung, Lochkarte, Wetterstation. Dinge,
-die eine Aufgabe erfüllen und deren Funktion man ansieht.
+**Apparate.** Werkzeuge und Mechanik, isoliert freigestellt: Sextant,
+Theodolit, Druckerpresse, Zirkel, Fernsprechvermittlung, Lochkarte,
+Wetterstation. Dinge, die eine Aufgabe erfüllen und deren Funktion man ansieht.
+
+Ausgenommen sind Gegenstände, die aus Schrift bestehen. Ein Setzkasten voller
+Lettern liegt für einen Blog nahe, widerspricht aber Abschnitt 6: Der Versuch
+ergab eine gleichmässig dunkle Fläche aus Buchstaben, mittig, ohne Schwerpunkt —
+also drei Regelverstösse auf einmal. Was ein Motiv im Kern ist, lässt sich nicht
+wegprompten.
 
 **Naturformen.** Vergrösserte Strukturen: Blattadern, Kristallgitter,
 Wolkenschichtung, Wellenmuster, Baumringe. Ordnung, die niemand entworfen hat.
@@ -163,12 +169,18 @@ Graustufen mit Kantenglättung. Der Ein-Bit-Charakter entsteht **im zweiten
 Schritt**, und der ist nicht optional.
 
 ```
-1. Erzeugen      Bildmodell, Vorlage aus Abschnitt 9, in Zielgrösse
+1. Erzeugen      node scripts/openrouter.mjs image "<Vorlage>" --out roh.png
 2. Zuschneiden   auf das Seitenverhältnis aus Abschnitt 7
-3. Dithern       node scripts/dither.mjs <ein.png> <aus.png> --mode atkinson
+3. Dithern       node scripts/dither.mjs roh.png <aus.png> --mode atkinson
 4. Prüfen        hineinzoomen: nur reines Schwarz und reines Weiss?
+                 und: steht irgendwo eine Zahl oder ein Buchstabe im Bild?
 5. Ablegen       public/blog/<slug>.png  (+ <slug>-invers.png)
 ```
+
+Schritt 1 wandelt selbsttätig nach PNG um, falls das Modell JPEG liefert — das
+voreingestellte tut das. Schritt 4 ist keine Formalität: Kein Prompt schliesst
+Schrift zuverlässig aus, er macht sie nur selten. Ein Bild mit Beschriftung wird
+verworfen und neu erzeugt, nicht nachbearbeitet.
 
 Schritt 3 kennt die Verfahren aus Abschnitt 4:
 `--mode atkinson | floyd | bayer | lines`, dazu `--invert` für die negative
@@ -180,13 +192,27 @@ Fassung. `node scripts/dither.mjs --help` zeigt alles.
 
 Bildmodelle folgen englischen Angaben zuverlässiger. `{MOTIV}` ersetzen.
 
+**Der Schriftbann muss ausbuchstabiert werden.** `no text` allein genügt nicht:
+Im Vergleich beschrifteten zwei von vier Modellen die Gradskala eines Sextanten
+mit Zahlen, obwohl `no text` im Prompt stand. Ein Modell hört auf `no text`,
+denkt dabei aber an Wörter, nicht an Ziffern. Deshalb steht in jeder Vorlage
+unten derselbe ausführliche Satz. Mit ihm lieferte dasselbe Modell in zwei von
+zwei Läufen ein Bild ohne eine einzige Zahl. Der Satz ist nicht optional.
+
+```
+Completely unlabelled: no numbers, no numerals, no digits, no letters,
+no words, no scale markings, no signature. Every gauge and scale is
+blank, showing tick marks only.
+```
+
 **Fotografisch (Verfahren A oder B):**
 
 ```
 {MOTIV}, isolated on a plain white background, extreme high contrast
 black and white, harsh directional light, deep blacks, blown highlights,
-no mid-greys, macro detail, sharp focus, studio photograph, no text,
-no people, no logos
+no mid-greys, macro detail, sharp focus, studio photograph, no people,
+no logos. Completely unlabelled: no numbers, no numerals, no digits,
+no letters, no words, no scale markings, no signature.
 ```
 
 **Strichgravur (Verfahren D):**
@@ -195,7 +221,9 @@ no people, no logos
 {MOTIV}, pen and ink line engraving, dense cross-hatching, fine parallel
 line shading, antique encyclopedia illustration, woodcut and copperplate
 technique, pure black lines on plain white, no grey wash, no colour,
-no text, centred object, high detail
+centred object, high detail. Completely unlabelled: no numbers,
+no numerals, no digits, no letters, no words, no scale markings,
+no signature. Every gauge and scale is blank, showing tick marks only.
 ```
 
 **Negative Fassung (Verfahren D, invers):**
@@ -203,7 +231,8 @@ no text, centred object, high detail
 ```
 {MOTIV}, white line engraving on solid pure black background, fine white
 hatching, scratchboard technique, glowing white linework, no grey,
-no colour, no text
+no colour. Completely unlabelled: no numbers, no numerals, no digits,
+no letters, no words, no scale markings, no signature.
 ```
 
 Immer ausschliessen: `colour, gradient, soft shading, grey background,
