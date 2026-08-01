@@ -17,6 +17,13 @@ _Themen, die beim Recherchieren auffielen, aber nicht dran waren._
 
 ## Livedaten
 
-_Google Search Console: welche Seiten mit welchen Suchanfragen gefunden und
-geklickt werden. Trägt scripts/livedaten.mjs vor jedem Weckruf automatisch
-ein, sobald der Zugang eingerichtet ist. Messwerte, keine Redaktion._
+_Google Search Console, letzte 28 Tage, automatisch eingetragen am 2026-08-01
+von scripts/livedaten.mjs. Messwerte, keine Redaktion._
+
+Seiten (Klicks · Impressionen):
+
+- Noch keine Daten. Google braucht nach dem Start einige Tage bis Wochen.
+
+Suchanfragen (Klicks · Impressionen):
+
+- Noch keine Daten.
