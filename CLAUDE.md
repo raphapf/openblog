@@ -53,8 +53,13 @@ node scripts/openrouter.mjs ask "<Frage>" --plugins web   # mit Websuche
 node scripts/openrouter.mjs models --images         # Modelle mit Bildausgabe
 ```
 
-Voreingestellte Modelle stehen in `.env` (`OPENROUTER_TEXT_MODEL`,
-`OPENROUTER_IMAGE_MODEL`); ohne Eintrag gelten die Werte im Skript.
+Voreingestellt sind `anthropic/claude-sonnet-5` für Text und
+`google/gemini-3-pro-image` für Bilder — beides erprobt, die Belege und die
+Kosten stehen in [docs/modelle.md](docs/modelle.md). Überschreiben über
+`OPENROUTER_TEXT_MODEL` und `OPENROUTER_IMAGE_MODEL` in `.env`.
+
+Der System-Prompt des schreibenden Agenten steht in
+[docs/agent.md](docs/agent.md).
 
 ## Gestaltung
 
@@ -89,4 +94,6 @@ scripts/
   hostinger.mjs        DNS und Domains über die Hostinger-API
 docs/
   bildsprache.md       Gestaltungsvorgabe für Bilder
+  modelle.md           Welches Modell wofür, mit Kosten
+  agent.md             System-Prompt des schreibenden Agenten
 ```

@@ -29,8 +29,9 @@ const env = loadEnv();
 const KEY = env.OPENROUTER_API_KEY;
 const scrub = makeScrub(KEY);
 
-const TEXT_MODEL = env.OPENROUTER_TEXT_MODEL || 'anthropic/claude-sonnet-4.5';
-const IMAGE_MODEL = env.OPENROUTER_IMAGE_MODEL || 'google/gemini-2.5-flash-image';
+// Gewählt nach einem Vergleich, nicht nach Bauchgefühl — siehe docs/modelle.md.
+const TEXT_MODEL = env.OPENROUTER_TEXT_MODEL || 'anthropic/claude-sonnet-5';
+const IMAGE_MODEL = env.OPENROUTER_IMAGE_MODEL || 'google/gemini-3-pro-image';
 
 async function request(path, init = {}) {
   const res = await fetch(`${BASE}${path}`, {
@@ -178,6 +179,7 @@ async function ask(prompt, opts) {
     body: JSON.stringify({
       model,
       messages,
+      usage: { include: true }, // liefert die tatsächlichen Kosten mit
       ...(opts.plugins === 'web' ? { plugins: [{ id: 'web' }] } : {}),
     }),
   });
@@ -237,6 +239,7 @@ async function image(prompt, opts) {
       model,
       modalities: ['image', 'text'],
       messages: [{ role: 'user', content: prompt }],
+      usage: { include: true },
     }),
   });
 
@@ -263,16 +266,32 @@ async function image(prompt, opts) {
     found.mime = res.headers.get('content-type') ?? 'image/png';
   }
 
-  writeFileSync(out, found.buffer);
-  const kb = Math.round(found.buffer.length / 1024);
-  console.log(`${out} · ${found.mime} · ${kb} kB`);
+  // Manche Modelle liefern JPEG, auch wenn das Ziel auf .png endet. Die Endung
+  // an den tatsächlichen Inhalt anpassen, statt JPEG-Bytes in eine .png-Datei
+  // zu schreiben — dither.mjs würde sie sonst als defektes PNG ablehnen.
+  const echteEndung = found.mime === 'image/png' ? '.png' : found.mime === 'image/webp' ? '.webp' : '.jpg';
+  const ziel = new RegExp(`\\${echteEndung}$`, 'i').test(out)
+    ? out
+    : out.replace(/\.[^.]+$/, '') + echteEndung;
 
-  if (!/\.png$/i.test(out) || found.mime !== 'image/png') {
-    console.error('\nHinweis: dither.mjs liest nur PNG. Umwandeln mit:');
-    console.error(`  sips -s format png ${out} --out ${out.replace(/\.[^.]+$/, '')}.png`);
+  writeFileSync(ziel, found.buffer);
+  const kb = Math.round(found.buffer.length / 1024);
+  const kosten = body?.usage?.cost;
+  console.log(
+    `${ziel} · ${found.mime} · ${kb} kB` +
+      (kosten != null ? ` · ${Number(kosten).toFixed(4)} $` : ''),
+  );
+
+  if (ziel !== out) {
+    const png = ziel.replace(/\.[^.]+$/, '') + '.png';
+    console.error(`\nDas Modell lieferte ${found.mime}, nicht PNG. dither.mjs liest nur PNG:`);
+    console.error(`  sips -s format png ${ziel} --out ${png}`);
+    console.error('JPEG ist verlustbehaftet — seine Artefakte werden beim Dithern zu Rauschen.');
+    return;
   }
+
   console.error('\nWeiter nach docs/bildsprache.md, Schritt 3:');
-  console.error(`  node scripts/dither.mjs ${out} public/blog/<slug>.png --mode atkinson`);
+  console.error(`  node scripts/dither.mjs ${ziel} public/blog/<slug>.png --mode atkinson`);
 }
 
 // ── Aufruf ───────────────────────────────────────────────────────────────────
