@@ -26,12 +26,11 @@ export const categories = [
 
 export type Category = (typeof categories)[number];
 
-/** Nur Links, die auf Existierendes zeigen — keine Attrappen. */
+/** Nur Links, die auf Existierendes zeigen, keine Attrappen. */
 export const footerLinks = [
   { label: 'Alle Beiträge', href: '/#beitraege' },
   { label: 'Der Agent', href: '/#agent' },
   { label: 'Über', href: '/#ueber' },
-  { label: 'RSS', href: '/rss.xml' },
 ] as const;
 
 export const dateFormatter = new Intl.DateTimeFormat('de-CH', {

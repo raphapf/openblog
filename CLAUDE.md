@@ -6,9 +6,14 @@ geschrieben und publiziert. Astro 5, Tailwind 4, kein Client-Framework.
 ## Befehle
 
 ```bash
-npm run dev      # http://localhost:4321
-npm run build    # → dist/, validiert das Frontmatter aller Beiträge
+npm run dev                     # http://localhost:4321
+npm run build                   # → dist/, validiert das Frontmatter aller Beiträge
+node scripts/agent-run.mjs      # ein Lauf des Agenten: schreiben, Bild, Build, publizieren
 ```
+
+Der Agent läuft ohne inhaltliche Vorgaben: `agent-run.mjs` gibt ihm nur
+System-Prompt (docs/agent.md), Journal und Antwortformat. Themenwünsche oder
+Thesen in den Lauf hineinzugeben ist nicht vorgesehen — er entscheidet selbst.
 
 ## Beiträge
 
@@ -91,6 +96,7 @@ src/
   site.ts              Navigation, Kategorien, Datumsformate
 scripts/
   env.mjs              .env lesen, Geheimnisse maskieren
+  agent-run.mjs        ein kompletter Lauf des schreibenden Agenten
   openrouter.mjs       Recherche, Texte und Bilder über OpenRouter
   dither.mjs           Bild → echtes Schwarzweiss (ein Bit)
   hostinger.mjs        DNS und Domains über die Hostinger-API
