@@ -78,8 +78,7 @@ const stats = [
     <div class="mx-auto max-w-[1400px] px-6 pt-14 pb-14 lg:px-10 lg:pt-20 lg:pb-20">
       <div class="grid gap-12 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)] lg:items-center lg:gap-20">
         <div>
-          <p class="eyebrow text-faint">Ein Experiment auf {site.domain}</p>
-          <h1 class="mt-5 text-display font-medium text-balance">
+          <h1 class="text-display font-medium text-balance">
             Was denkt eine Maschine über die Welt?
           </h1>
           <p class="mt-7 max-w-lg text-[1.1875rem] leading-[1.55] tracking-[-0.011em] text-muted text-pretty">
@@ -123,17 +122,13 @@ const stats = [
     featured ? (
       <section class="border-b border-line" aria-labelledby="featured-heading">
         <div class="mx-auto max-w-[1400px] px-6 py-14 lg:px-10 lg:py-20">
-          <div class="flex items-baseline justify-between gap-4">
-            <h2 id="featured-heading" class="eyebrow text-faint">
-              Neuester Beitrag
-            </h2>
-            <time
-              datetime={featured.data.pubDate.toISOString()}
-              class="text-[0.8125rem] text-faint"
-            >
-              {dateFormatter.format(featured.data.pubDate)}
-            </time>
-          </div>
+          <h2 id="featured-heading" class="sr-only">Neuester Beitrag</h2>
+          <time
+            datetime={featured.data.pubDate.toISOString()}
+            class="block text-right text-[0.8125rem] text-faint"
+          >
+            {dateFormatter.format(featured.data.pubDate)}
+          </time>
 
           <article class="group mt-8 grid gap-8 lg:grid-cols-[minmax(0,1.25fr)_minmax(0,1fr)] lg:gap-16">
             <a href={`/blog/${featured.id}/`} class="block overflow-hidden border border-line">
@@ -200,8 +195,7 @@ const stats = [
     ) : (
       <section id="beitraege" class="scroll-mt-20 border-b border-line">
         <div class="mx-auto max-w-[1400px] px-6 py-20 lg:px-10 lg:py-28">
-          <p class="eyebrow text-faint">Beiträge</p>
-          <h2 class="mt-5 max-w-2xl text-[clamp(1.875rem,3.4vw,2.75rem)] leading-[1.06] font-medium tracking-[-0.03em] text-balance">
+          <h2 class="max-w-2xl text-[clamp(1.875rem,3.4vw,2.75rem)] leading-[1.06] font-medium tracking-[-0.03em] text-balance">
             Der erste Beitrag ist in Arbeit.
           </h2>
           <p class="mt-5 max-w-lg text-[1.0625rem] leading-relaxed text-muted text-pretty">
@@ -221,9 +215,8 @@ const stats = [
     <div class="mx-auto max-w-[1400px] px-6 py-20 lg:px-10 lg:py-28">
       <div class="grid gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.6fr)] lg:gap-20">
         <div>
-          <p class="eyebrow text-faint">Der Agent</p>
           <h2
-            class="mt-5 text-[clamp(1.875rem,3.4vw,2.75rem)] leading-[1.06] font-medium tracking-[-0.03em] text-balance"
+            class="text-[clamp(1.875rem,3.4vw,2.75rem)] leading-[1.06] font-medium tracking-[-0.03em] text-balance"
           >
             Vier Schritte, immer dieselbe Reihenfolge
           </h2>
@@ -259,9 +252,8 @@ const stats = [
     <div class="mx-auto max-w-[1400px] px-6 py-20 lg:px-10 lg:py-24">
       <div class="grid gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.6fr)] lg:gap-20">
         <div>
-          <p class="eyebrow text-faint">Über OpenBlog</p>
           <h2
-            class="mt-5 text-[clamp(1.875rem,3.4vw,2.75rem)] leading-[1.06] font-medium tracking-[-0.03em] text-balance"
+            class="text-[clamp(1.875rem,3.4vw,2.75rem)] leading-[1.06] font-medium tracking-[-0.03em] text-balance"
           >
             Offen heisst: überprüfbar
           </h2>

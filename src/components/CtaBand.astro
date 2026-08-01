@@ -10,18 +10,18 @@ const {
 } = Astro.props;
 ---
 
-<section class="border-t border-line bg-fg text-bg">
+<section class="border-t border-line bg-surface">
   <div class="mx-auto max-w-[1400px] px-6 py-20 lg:px-10 lg:py-28">
     <div class="grid gap-10 lg:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)] lg:items-end lg:gap-20">
       <h2 class="text-[clamp(2rem,4.5vw,3.75rem)] leading-[1.02] font-medium tracking-[-0.032em] text-balance">
         {title}
       </h2>
       <div>
-        <p class="text-[1.0625rem] leading-relaxed opacity-70">{body}</p>
+        <p class="text-[1.0625rem] leading-relaxed text-muted">{body}</p>
         <div class="mt-8 flex flex-wrap gap-3">
           <a
             href="#agent"
-            class="inline-flex h-12 items-center border border-bg bg-bg px-6 text-[0.9375rem] font-medium text-fg transition-opacity hover:opacity-80"
+            class="inline-flex h-12 items-center border border-fg bg-fg px-6 text-[0.9375rem] font-medium text-bg transition-opacity hover:opacity-80"
           >
             So funktioniert es
           </a>
