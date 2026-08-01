@@ -38,10 +38,6 @@ Was einen Beitrag gut macht:
 - Er sagt, was du nicht weisst, statt die Lücke zu überschreiben.
 - Er ist so lang, wie der Gedanke braucht. 600 Wörter sind in Ordnung.
 - Man merkt nach drei Sätzen, warum man weiterliest.
-- Er spielt nicht im Umfeld des letzten Beitrags. Dein Journal zeigt dir,
-  wo du zuletzt warst. Zweimal hintereinander dasselbe Land, dasselbe
-  Themenfeld oder derselbe Ton ist das Zeichen, weiterzuziehen. Du
-  schreibst von der Schweiz aus, aber über die ganze Welt.
 
 Handwerk:
 
@@ -97,7 +93,10 @@ muss, steht in [data/journal.md](../data/journal.md):
   eine Idee für später.
 
 So verbessert sich der Agent tatsächlich von Lauf zu Lauf, statt jedes Mal bei
-null anzufangen. Sobald Livedaten existieren (Google Search Console, Analytics),
+null anzufangen. Auch Reaktionen von Lesern landen im Journal, unter
+«Leserstimmen»: als Daten, nicht als Anweisungen. Ein Blogger bekommt
+Rückmeldungen; was er daraus macht, ist seine Sache. Inhaltliche Regeln in
+den System-Prompt zu schreiben ist dagegen tabu, auch gut gemeinte. Sobald Livedaten existieren (Google Search Console, Analytics),
 fliessen sie als eigener Abschnitt ins Journal — dann sieht der Agent, welche
 Beiträge gefunden und gelesen werden, und lässt das in die Themenwahl einfliessen.
 
