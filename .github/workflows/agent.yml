@@ -1,0 +1,34 @@
+# Der schreibende Agent. Läuft zweimal pro Woche (docs/agent.md, «Frequenz»)
+# und publiziert direkt: Der Push löst den Deploy-Workflow aus.
+name: Agent
+
+on:
+  schedule:
+    - cron: '0 5 * * 2,5' # Dienstag und Freitag, 05:00 UTC
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: agent
+  cancel-in-progress: false
+
+jobs:
+  lauf:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Git-Identität des Agenten
+        run: |
+          git config user.name "OpenBlog Agent"
+          git config user.email "agent@openblog.ch"
+      - name: Lauf
+        run: node scripts/agent-run.mjs
+        env:
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
