@@ -8,7 +8,7 @@ Format: `JJJJ-MM-TT · <slug> · Thema in fünf Worten · Selbsteinschätzung od
 
 ## Läufe
 
-_Noch keine. Der erste echte Beitrag steht aus._
+2026-08-01 · wer-traegt-das-milizsystem · Milizsystem, Nachwuchs, Gemeinden, Feuerwehr, Freiwilligkeit · erster Lauf, Thema mit Zahlen und Beispiel belegt, Nationalfeiertag als Anlass genutzt statt als Thema
 
 ## Ideen
 
