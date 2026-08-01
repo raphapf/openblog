@@ -11,45 +11,19 @@
  * Doku: https://developers.hostinger.com
  */
 
-import { readFileSync } from 'node:fs';
-import { fileURLToPath } from 'node:url';
-import { dirname, join } from 'node:path';
+import { loadEnv, makeScrub, requireKey } from './env.mjs';
 
-const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const BASE = 'https://developers.hostinger.com/api';
 
-/** Minimaler .env-Parser — keine Abhängigkeit nötig. */
-function loadEnv() {
-  let raw;
-  try {
-    raw = readFileSync(join(ROOT, '.env'), 'utf8');
-  } catch {
-    return {};
-  }
-  const out = {};
-  for (const line of raw.split('\n')) {
-    const m = line.match(/^\s*([A-Z0-9_]+)\s*=\s*(.*)\s*$/);
-    if (!m || line.trim().startsWith('#')) continue;
-    out[m[1]] = m[2].replace(/^["']|["']$/g, '');
-  }
-  return out;
-}
-
-const env = { ...loadEnv(), ...process.env };
-const TOKEN = env.HOSTINGER_API_TOKEN;
-
-if (!TOKEN) {
-  console.error(
-    'Kein HOSTINGER_API_TOKEN gefunden.\n' +
-      'Trage ihn in .env ein (Datei ist gitignored) und starte erneut.',
-  );
-  process.exit(1);
-}
+const env = loadEnv();
+const TOKEN = requireKey(
+  env,
+  'HOSTINGER_API_TOKEN',
+  'Trage ihn in .env ein (Datei ist gitignored) und starte erneut.',
+);
 
 /** Verhindert, dass der Token je in einer Ausgabe auftaucht. */
-function scrub(text) {
-  return String(text).split(TOKEN).join('<token>');
-}
+const scrub = makeScrub(TOKEN);
 
 async function request(path) {
   const url = path.startsWith('http') ? path : `${BASE}${path}`;

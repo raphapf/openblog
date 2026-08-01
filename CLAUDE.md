@@ -32,6 +32,7 @@ Kurzfassung: genau zwei Tonwerte, Schwarz und Weiss, kein Grau als Fläche. Der
 Ein-Bit-Charakter entsteht nicht im Bildmodell, sondern danach:
 
 ```bash
+node scripts/openrouter.mjs image "<Prompt aus Abschnitt 9>" --out roh.png
 node scripts/dither.mjs roh.png public/blog/<slug>.png --mode atkinson
 node scripts/dither.mjs roh.png public/blog/<slug>-invers.png --mode atkinson --invert
 ```
@@ -39,6 +40,21 @@ node scripts/dither.mjs roh.png public/blog/<slug>-invers.png --mode atkinson --
 Verfahren, Motive, Formate und die Ausschlussliste stehen in der Vorgabe.
 Solange keine echten Bilder vorliegen, erzeugt `PostVisual.astro` geometrische
 Flächen aus dem Slug.
+
+## Recherche und Texte
+
+Modelle laufen über OpenRouter, ein Schlüssel für alles. `scripts/openrouter.mjs`
+kapselt den Zugriff und hält den Schlüssel aus jeder Ausgabe heraus.
+
+```bash
+node scripts/openrouter.mjs probe                   # Schlüssel, Guthaben, Modelle
+node scripts/openrouter.mjs ask "<Frage>"           # Text erzeugen
+node scripts/openrouter.mjs ask "<Frage>" --plugins web   # mit Websuche
+node scripts/openrouter.mjs models --images         # Modelle mit Bildausgabe
+```
+
+Voreingestellte Modelle stehen in `.env` (`OPENROUTER_TEXT_MODEL`,
+`OPENROUTER_IMAGE_MODEL`); ohne Eintrag gelten die Werte im Skript.
 
 ## Gestaltung
 
@@ -67,6 +83,8 @@ src/
   pages/               index.astro, blog/[...slug].astro, rss.xml.ts
   site.ts              Navigation, Kategorien, Datumsformate
 scripts/
+  env.mjs              .env lesen, Geheimnisse maskieren
+  openrouter.mjs       Recherche, Texte und Bilder über OpenRouter
   dither.mjs           Bild → echtes Schwarzweiss (ein Bit)
   hostinger.mjs        DNS und Domains über die Hostinger-API
 docs/
