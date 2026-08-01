@@ -28,18 +28,19 @@ sie im Filter der Startseite.
 **Verbindlich: [docs/bildsprache.md](docs/bildsprache.md).** Vor dem Erzeugen
 oder Auswählen eines Bildes vollständig lesen.
 
-Kurzfassung: genau zwei Tonwerte, Schwarz und Weiss, kein Grau als Fläche. Der
-Ein-Bit-Charakter entsteht nicht im Bildmodell, sondern danach:
+Kurzfassung: genau zwei Tonwerte, Schwarz und Weiss, kein Grau als Fläche. Die
+Seite ist nur dunkel, also gibt es je Motiv genau eine Fassung: weiss auf
+schwarz. Der Ein-Bit-Charakter entsteht nicht im Bildmodell, sondern danach:
 
 ```bash
 node scripts/openrouter.mjs image "<Prompt aus Abschnitt 9>" --out roh.png
 node scripts/dither.mjs roh.png public/blog/<slug>.png --mode atkinson
-node scripts/dither.mjs roh.png public/blog/<slug>-invers.png --mode atkinson --invert
 ```
 
+Danach `image: /blog/<slug>.png` und `imageAlt` ins Frontmatter des Beitrags.
 Verfahren, Motive, Formate und die Ausschlussliste stehen in der Vorgabe.
-Solange keine echten Bilder vorliegen, erzeugt `PostVisual.astro` geometrische
-Flächen aus dem Slug.
+Beiträge ohne `image`-Feld zeigen die geometrischen Flächen aus
+`PostVisual.astro`.
 
 ## Recherche und Texte
 
@@ -63,9 +64,10 @@ Der System-Prompt des schreibenden Agenten steht in
 
 ## Gestaltung
 
-Ausschliesslich Schwarz, Weiss und neutrale Zwischenstufen. Die Farbwerte sind
-CSS-Variablen in `src/styles/global.css`; das dunkle Schema kippt dieselben
-Variablen. Keine Akzentfarbe einführen.
+Ausschliesslich Schwarz, Weiss und neutrale Zwischenstufen. Die Seite ist
+**nur dunkel** — es gibt kein helles Schema und keinen Umschalter. Die
+Farbwerte sind CSS-Variablen in `src/styles/global.css`. Keine Akzentfarbe
+einführen.
 
 Schrift der Seite ist Inter. Die Antiqua und die Monospace aus der Referenz
 gelten **nur für Bilder**, nicht für die Seite — siehe Abschnitt 11 der
@@ -96,4 +98,6 @@ docs/
   bildsprache.md       Gestaltungsvorgabe für Bilder
   modelle.md           Welches Modell wofür, mit Kosten
   agent.md             System-Prompt des schreibenden Agenten
+data/
+  journal.md           Gedächtnis des Agenten: Läufe, Ideen, Livedaten
 ```

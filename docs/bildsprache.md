@@ -48,19 +48,15 @@ sehen. Sonst ist das Bild nicht fertig (siehe Abschnitt 8).
 
 ---
 
-## 3. Die zwei Polaritäten
+## 3. Die Polarität
 
-Jedes Motiv existiert in zwei Fassungen. Beide werden erzeugt und abgelegt.
+Die Seite ist seit August 2026 **ausschliesslich dunkel**. Es gibt darum genau
+eine Fassung je Motiv: **weisse Zeichnung auf schwarzem Grund**. Das entspricht
+ohnehin der Bildwelt aus Abschnitt 5 — dunkle, dichte Szenen mit hellem
+Blickfang —, das Modell liefert sie also direkt, ohne `--invert`.
 
-**Positiv** — schwarze Tinte auf weissem Papier. Standard im hellen Farbschema.
-
-**Negativ** — weisse Zeichnung auf schwarzem Grund. Standard im dunklen
-Farbschema, und im hellen Schema als **Akzent**: In der Referenz ist die dritte
-von drei Kacheln invertiert. Genau dieser Rhythmus ist gemeint — ein invertiertes
-Bild alle drei bis vier Kacheln bricht das Raster auf.
-
-Regel für den Beitragsindex: Bei mehr als drei Kacheln nebeneinander wird
-**höchstens jede dritte** invertiert, nie zwei nebeneinander.
+Eine helle Positiv-Fassung wird nicht mehr erzeugt. Sollte je wieder ein helles
+Farbschema dazukommen, liefert `dither.mjs --invert` sie aus demselben Rohbild.
 
 ---
 
@@ -170,7 +166,8 @@ Schritt**, und der ist nicht optional.
 3. Dithern       node scripts/dither.mjs roh.png <aus.png> --mode atkinson
 4. Prüfen        hineinzoomen: nur reines Schwarz und reines Weiss?
                  und: steht irgendwo eine Zahl oder ein Buchstabe im Bild?
-5. Ablegen       public/blog/<slug>.png  (+ <slug>-invers.png)
+5. Ablegen       public/blog/<slug>.png   (weiss auf schwarz, Abschnitt 3)
+6. Eintragen     image: /blog/<slug>.png und imageAlt: … ins Frontmatter
 ```
 
 Schritt 1 wandelt selbsttätig nach PNG um, falls das Modell JPEG liefert — das
@@ -258,7 +255,7 @@ Gestaltungsfrage. Sie würde die Seite deutlich näher an die Referenz rücken �
 und deutlich weiter weg von der nüchternen Schweizer Anmutung, die sie heute hat.
 Diese Entscheidung ist noch nicht getroffen.
 
-**Bis echte Bilder vorliegen** erzeugt `PostVisual.astro` geometrische Flächen
-aus dem Slug. Diese Vorgabe ersetzt sie nicht — sie beschreibt, was an ihre
-Stelle tritt. Beim Umstieg bleibt das Verhalten gleich: gleicher Beitrag,
-gleiches Bild, und die Polarität folgt dem Farbschema.
+**Beiträge ohne `image`-Feld** zeigen weiterhin die geometrischen Flächen aus
+`PostVisual.astro`. Neue Beiträge sollen ein echtes Bild mitbringen: erzeugen,
+dithern, unter `public/blog/<slug>.png` ablegen und im Frontmatter als
+`image` samt `imageAlt` eintragen.

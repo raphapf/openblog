@@ -1,24 +1,10 @@
 @import 'tailwindcss';
 
-/* Dark mode is driven by data-theme on <html>, set before paint by an inline script. */
-@custom-variant dark (&:where([data-theme='dark'], [data-theme='dark'] *));
-
 /* ---------------------------------------------------------------------------
-   Brand: black and white only. Everything else is a neutral step between the
-   two, so the palette stays honest in both themes.
+   Brand: black and white only, and the site is dark by design — es gibt kein
+   helles Schema. Everything else is a neutral step between the two.
 --------------------------------------------------------------------------- */
 :root {
-  --c-bg: #ffffff;
-  --c-fg: #0a0a0a;
-  --c-muted: #6f6f6f;
-  --c-faint: #9b9b9b;
-  --c-line: #e6e6e6;
-  --c-line-strong: #0a0a0a;
-  --c-surface: #f6f6f6;
-  --c-surface-2: #ededed;
-}
-
-[data-theme='dark'] {
   --c-bg: #0a0a0a;
   --c-fg: #fafafa;
   --c-muted: #949494;
@@ -30,7 +16,7 @@
 }
 
 @theme inline {
-  --font-sans: 'Inter', 'Inter Placeholder', 'Helvetica Neue', Helvetica, Arial,
+  --font-sans: 'Inter Variable', 'Inter', 'Helvetica Neue', Helvetica, Arial,
     system-ui, sans-serif;
 
   --color-bg: var(--c-bg);
@@ -55,6 +41,8 @@
   html {
     -webkit-text-size-adjust: 100%;
     scroll-behavior: smooth;
+    /* Native Controls (Suchfeld, Select, Scrollbars) dunkel rendern. */
+    color-scheme: dark;
   }
 
   body {

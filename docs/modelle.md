@@ -12,9 +12,10 @@ nicht aus Ranglisten übernommen.
 | Recherche und Text | `anthropic/claude-sonnet-5` | ~0.12 $ |
 | Bild | `openai/gpt-5.4-image-2` | ~0.23 $ |
 
-**Rund 0.35 $ pro Beitrag, bei einem Beitrag täglich also etwa 10.60 $ im
-Monat.** Beides steht als Voreinstellung in `scripts/openrouter.mjs` und lässt
-sich über `.env` überschreiben.
+**Rund 0.35 $ pro Beitrag. Bei zwei bis drei Beiträgen pro Woche — der
+beschlossenen Frequenz, siehe [agent.md](agent.md) — sind das etwa 3.50 bis
+4.50 $ im Monat.** Beides steht als Voreinstellung in `scripts/openrouter.mjs`
+und lässt sich über `.env` überschreiben.
 
 **Warum das teuerste Bildmodell?** Der Bildstil wurde am 1. August 2026 neu
 festgelegt (siehe [Bildsprache, Abschnitt 5](bildsprache.md)): dichter
@@ -23,7 +24,7 @@ erzeugten Referenzbilds. `gpt-5.4-image-2` ist dasselbe Modell hinter
 OpenRouter und traf den Stil im Test mit einer neuen Szene auf Anhieb —
 verlustfreies PNG, keine Schrift im Bild, sauber auf 1 Bit rasterbar. Die
 günstigeren Gemini-Modelle waren für den früheren Gravur-Stil erprobt; ob sie
-dieses Halbton-Raster treffen, ist ungeprüft. Sechs Dollar Unterschied im
+dieses Halbton-Raster treffen, ist ungeprüft. Zwei Dollar Unterschied im
 Monat sind das falsche Sparfeld, wenn das Bild der erste Eindruck jedes
 Beitrags ist.
 

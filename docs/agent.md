@@ -45,6 +45,12 @@ Handwerk:
 - Aufzählungen nur für echte Listen, nicht als Ersatz für Absätze.
 - Behauptungen über die Welt recherchierst du, bevor du sie aufstellst.
   Was du nicht belegen kannst, kennzeichnest du als Vermutung.
+- Über OpenBlog selbst erfindest du nichts: keine Zahlen, keine Historie,
+  keine Anekdoten, die sich nicht im Repository belegen lassen.
+- Jeder Beitrag endet mit einem Abschnitt «Quellen» — die Links, die du
+  wirklich benutzt hast. Ohne Quellen wird nicht publiziert.
+- Der Titel hat höchstens 60 Zeichen, die description 120 bis 155 —
+  beides erscheint so in Suchresultaten und muss dort für sich stehen.
 ```
 
 ---
@@ -63,20 +69,51 @@ hingehört, und der Agent liest es beim Lauf:
 
 ---
 
+## Gedächtnis
+
+Der Agent startet jeden Lauf ohne Erinnerung. Was er über frühere Läufe wissen
+muss, steht in [data/journal.md](../data/journal.md):
+
+- **Vor dem Schreiben** liest er das Journal: welche Themen es schon gab
+  (keine Wiederholungen), was funktioniert hat, welche Ideen offen sind.
+- **Nach dem Publizieren** ergänzt er eine Zeile: Datum, Slug, Thema, eine
+  ehrliche Selbsteinschätzung — und, wenn beim Recherchieren etwas auffiel,
+  eine Idee für später.
+
+So verbessert sich der Agent tatsächlich von Lauf zu Lauf, statt jedes Mal bei
+null anzufangen. Sobald Livedaten existieren (Google Search Console, Analytics),
+fliessen sie als eigener Abschnitt ins Journal — dann sieht der Agent, welche
+Beiträge gefunden und gelesen werden, und lässt das in die Themenwahl einfliessen.
+
+---
+
 ## Ablauf eines Laufs
 
 ```
-1. Thema wählen      frei, aber nicht das naheliegende
-2. Recherchieren     openrouter.mjs ask "…" --plugins web
-3. Schreiben         Markdown nach src/content/blog/<slug>.md
-4. Bild erzeugen     openrouter.mjs image "…" --out roh.png
-5. Dithern           dither.mjs roh.png public/blog/<slug>.png --mode atkinson
-6. Prüfen            npm run build — bricht bei falschem Frontmatter ab
-7. Veröffentlichen   committen und pushen
+1. Journal lesen     data/journal.md — was gab es schon, was ist offen
+2. Thema wählen      frei, aber nicht das naheliegende und nichts Doppeltes
+3. Recherchieren     openrouter.mjs ask "…" --plugins web
+4. Schreiben         Markdown nach src/content/blog/<slug>.md, mit «Quellen»
+5. Bild erzeugen     openrouter.mjs image "…" --out roh.png   (bildsprache.md, §9)
+6. Dithern           dither.mjs roh.png public/blog/<slug>.png --mode atkinson
+7. Eintragen         image und imageAlt ins Frontmatter
+8. Prüfen            npm run build — bricht bei falschem Frontmatter ab
+9. Journal führen    eine Zeile in data/journal.md ergänzen
+10. Veröffentlichen  committen und pushen
 ```
 
-Schritt 6 ist nicht optional. Ein Beitrag, der den Build bricht, darf nicht ins
+Schritt 8 ist nicht optional. Ein Beitrag, der den Build bricht, darf nicht ins
 Repository.
+
+---
+
+## Frequenz
+
+**Zwei bis drei Beiträge pro Woche.** Entschieden am 1. August 2026, gegen die
+ursprüngliche Annahme «täglich»: 365 Themen im Jahr zwingen in Füllmaterial,
+und ein Blog wird nicht durch Frequenz bekannt, sondern durch Beiträge, die
+jemand weiterschickt. Die Kostenrechnung in [modelle.md](modelle.md) rechnet
+mit dieser Frequenz. Hochdrehen geht jederzeit, wenn die Qualität es hergibt.
 
 ---
 
@@ -87,7 +124,3 @@ ein Pull Request statt eines Commits die vorsichtigere Wahl: Der Lauf ist
 derselbe, aber ein Mensch sieht den Beitrag, bevor er öffentlich ist. Sobald
 die Qualität stabil ist, entfällt der Zwischenschritt. Diese Entscheidung ist
 noch nicht getroffen.
-
-**Wie oft?** Täglich ist die Annahme, aus der die Kostenrechnung in
-[modelle.md](modelle.md) stammt. Seltener und dafür länger ist eine
-Überlegung wert — ein Blog wird nicht durch Frequenz bekannt.

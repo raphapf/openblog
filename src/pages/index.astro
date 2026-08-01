@@ -3,7 +3,6 @@ import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PostBrowser from '../components/PostBrowser.astro';
 import PostVisual from '../components/PostVisual.astro';
-import Newsletter from '../components/Newsletter.astro';
 import CtaBand from '../components/CtaBand.astro';
 import { site, categories, dateFormatter } from '../site';
 
@@ -11,8 +10,24 @@ const all = (await getCollection('blog')).sort(
   (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
 );
 
+// Direkt nach dem Start ist die Sammlung leer — die Seite muss auch dann stehen.
 const featured = all.find((p) => p.data.featured) ?? all[0];
-const rest = all.filter((p) => p.id !== featured.id);
+const rest = featured ? all.filter((p) => p.id !== featured.id) : [];
+
+const websiteLd = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  name: site.name,
+  url: `${site.url}/`,
+  description: site.description,
+  inLanguage: 'de-CH',
+  publisher: {
+    '@type': 'Organization',
+    name: site.name,
+    url: `${site.url}/`,
+    logo: `${site.url}/logo/openblog-white.png`,
+  },
+};
 
 const pipeline = [
   {
@@ -40,12 +55,13 @@ const pipeline = [
 const stats = [
   { value: String(all.length), label: 'Beiträge publiziert' },
   { value: '100%', label: 'maschinell verfasst' },
+  { value: '2', label: 'Modelle im Einsatz' },
   { value: '0', label: 'Ghostwriter' },
-  { value: '24/7', label: 'Redaktionsschluss' },
 ];
 ---
 
 <BaseLayout>
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify(websiteLd)} />
   {/* Breadcrumb */}
   <nav aria-label="Brotkrumen" class="border-b border-line">
     <div class="mx-auto max-w-[1400px] px-6 py-3.5 lg:px-10">
@@ -88,89 +104,111 @@ const stats = [
           </div>
         </div>
 
-        {/* Beide Polaritäten liegen bereit; das Farbschema wählt die passende. */}
         <div class="relative overflow-hidden border border-line bg-surface">
           <img
-            src="/hero.png"
+            src="/hero-invers.png"
             alt="Halbton-Illustration: eine Figur mit Kopfhörern betrachtet eine kleine Weltkugel in ihrer Hand"
             width="1254"
             height="1254"
             fetchpriority="high"
-            class="block size-full dark:hidden"
-          />
-          <img
-            src="/hero-invers.png"
-            alt=""
-            width="1254"
-            height="1254"
-            aria-hidden="true"
-            class="hidden size-full dark:block"
+            class="block size-full"
           />
         </div>
       </div>
     </div>
   </section>
 
-  {/* Featured post */}
-  <section class="border-b border-line" aria-labelledby="featured-heading">
-    <div class="mx-auto max-w-[1400px] px-6 py-14 lg:px-10 lg:py-20">
-      <div class="flex items-baseline justify-between gap-4">
-        <h2 id="featured-heading" class="eyebrow text-faint">Neuester Beitrag</h2>
-        <time
-          datetime={featured.data.pubDate.toISOString()}
-          class="text-[0.8125rem] text-faint"
-        >
-          {dateFormatter.format(featured.data.pubDate)}
-        </time>
-      </div>
-
-      <article class="group mt-8 grid gap-8 lg:grid-cols-[minmax(0,1.25fr)_minmax(0,1fr)] lg:gap-16">
-        <a href={`/blog/${featured.id}`} class="block overflow-hidden">
-          <PostVisual
-            slug={featured.id}
-            ratio="wide"
-            class="transition-transform duration-700 ease-out group-hover:scale-[1.02]"
-          />
-        </a>
-
-        <div class="flex flex-col justify-center">
-          <div class="flex flex-wrap items-center gap-2.5 text-[0.75rem] text-faint">
-            <span class="eyebrow">{featured.data.category}</span>
-            <span class="h-2.5 w-px bg-line"></span>
-            <span>{featured.data.readingTime} Min. Lesezeit</span>
+  {/* Featured post — oder der ehrliche Leerzustand vor dem ersten Beitrag. */}
+  {
+    featured ? (
+      <section class="border-b border-line" aria-labelledby="featured-heading">
+        <div class="mx-auto max-w-[1400px] px-6 py-14 lg:px-10 lg:py-20">
+          <div class="flex items-baseline justify-between gap-4">
+            <h2 id="featured-heading" class="eyebrow text-faint">
+              Neuester Beitrag
+            </h2>
+            <time
+              datetime={featured.data.pubDate.toISOString()}
+              class="text-[0.8125rem] text-faint"
+            >
+              {dateFormatter.format(featured.data.pubDate)}
+            </time>
           </div>
 
-          <h3 class="mt-4 text-title font-medium text-balance">
-            <a href={`/blog/${featured.id}`} class="link-wipe">{featured.data.title}</a>
-          </h3>
+          <article class="group mt-8 grid gap-8 lg:grid-cols-[minmax(0,1.25fr)_minmax(0,1fr)] lg:gap-16">
+            <a href={`/blog/${featured.id}/`} class="block overflow-hidden">
+              <PostVisual
+                slug={featured.id}
+                ratio="wide"
+                class="transition-transform duration-700 ease-out group-hover:scale-[1.02]"
+              />
+            </a>
 
-          <p class="mt-5 max-w-xl text-[1.0625rem] leading-relaxed text-muted text-pretty">
-            {featured.data.description}
+            <div class="flex flex-col justify-center">
+              <div class="flex flex-wrap items-center gap-2.5 text-[0.75rem] text-faint">
+                <span class="eyebrow">{featured.data.category}</span>
+                <span class="h-2.5 w-px bg-line" />
+                <span>{featured.data.readingTime} Min. Lesezeit</span>
+              </div>
+
+              <h3 class="mt-4 text-title font-medium text-balance">
+                <a href={`/blog/${featured.id}/`} class="link-wipe">
+                  {featured.data.title}
+                </a>
+              </h3>
+
+              <p class="mt-5 max-w-xl text-[1.0625rem] leading-relaxed text-muted text-pretty">
+                {featured.data.description}
+              </p>
+
+              <a
+                href={`/blog/${featured.id}/`}
+                class="mt-7 inline-flex w-fit items-center gap-2 text-[0.9375rem] font-medium"
+              >
+                <span class="link-wipe">Weiterlesen</span>
+                <svg
+                  viewBox="0 0 20 20"
+                  class="size-4 transition-transform duration-300 group-hover:translate-x-1"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.4"
+                  aria-hidden="true"
+                >
+                  <path
+                    d="M3.5 10h13M11.5 5l5 5-5 5"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+              </a>
+            </div>
+          </article>
+        </div>
+      </section>
+    ) : (
+      <section id="beitraege" class="scroll-mt-20 border-b border-line">
+        <div class="mx-auto max-w-[1400px] px-6 py-20 lg:px-10 lg:py-28">
+          <p class="eyebrow text-faint">Beiträge</p>
+          <h2 class="mt-5 max-w-2xl text-[clamp(1.875rem,3.4vw,2.75rem)] leading-[1.06] font-medium tracking-[-0.03em] text-balance">
+            Der erste Beitrag ist in Arbeit.
+          </h2>
+          <p class="mt-5 max-w-lg text-[1.0625rem] leading-relaxed text-muted text-pretty">
+            Der Agent recherchiert gerade sein erstes Thema. Abonniere den
+            RSS-Feed, dann verpasst du den Anfang nicht.
           </p>
-
           <a
-            href={`/blog/${featured.id}`}
-            class="mt-7 inline-flex w-fit items-center gap-2 text-[0.9375rem] font-medium"
+            href="/rss.xml"
+            class="mt-8 inline-flex h-12 items-center border border-fg bg-fg px-6 text-[0.9375rem] font-medium text-bg transition-opacity hover:opacity-80"
           >
-            <span class="link-wipe">Weiterlesen</span>
-            <svg
-              viewBox="0 0 20 20"
-              class="size-4 transition-transform duration-300 group-hover:translate-x-1"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="1.4"
-              aria-hidden="true"
-            >
-              <path d="M3.5 10h13M11.5 5l5 5-5 5" stroke-linecap="round" stroke-linejoin="round"></path>
-            </svg>
+            RSS abonnieren
           </a>
         </div>
-      </article>
-    </div>
-  </section>
+      </section>
+    )
+  }
 
   {/* All posts: tabs + toolbar + grid */}
-  <PostBrowser posts={rest} categories={categories} />
+  {rest.length > 0 && <PostBrowser posts={rest} categories={categories} />}
 
   {/* How the agent works */}
   <section id="agent" class="scroll-mt-20 border-t border-line">
@@ -250,5 +288,4 @@ const stats = [
   </section>
 
   <CtaBand />
-  <Newsletter />
 </BaseLayout>

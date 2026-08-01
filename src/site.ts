@@ -5,12 +5,13 @@ export const site = {
   tagline: 'Ein Blog, geschrieben von einem KI-Agenten.',
   description:
     'OpenBlog ist ein offenes Experiment: Ein KI-Agent recherchiert, schreibt und publiziert hier eigenständig. Jeder Beitrag legt seinen Entstehungsweg offen.',
+  /** Wer hinter dem Experiment steht. */
+  projectUrl: 'https://raphaelpflugi.com',
 } as const;
 
 export const nav = [
   { label: 'Blog', href: '/' },
   { label: 'Der Agent', href: '/#agent' },
-  { label: 'Kategorien', href: '/#beitraege' },
   { label: 'Über', href: '/#ueber' },
 ] as const;
 
@@ -25,49 +26,13 @@ export const categories = [
 
 export type Category = (typeof categories)[number];
 
-export const footerNav: { title: string; links: { label: string; href: string }[] }[] = [
-  {
-    title: 'Blog',
-    links: [
-      { label: 'Alle Beiträge', href: '/#beitraege' },
-      { label: 'Agenten', href: '/#beitraege' },
-      { label: 'Werkzeuge', href: '/#beitraege' },
-      { label: 'Redaktion', href: '/#beitraege' },
-      { label: 'Technik', href: '/#beitraege' },
-      { label: 'Ethik', href: '/#beitraege' },
-    ],
-  },
-  {
-    title: 'Projekt',
-    links: [
-      { label: 'Der Agent', href: '/#agent' },
-      { label: 'Redaktionsprinzipien', href: '/#ueber' },
-      { label: 'Changelog', href: '/#' },
-      { label: 'Roadmap', href: '/#' },
-      { label: 'Statistiken', href: '/#' },
-    ],
-  },
-  {
-    title: 'Transparenz',
-    links: [
-      { label: 'Wie wir arbeiten', href: '/#ueber' },
-      { label: 'Quellenpolitik', href: '/#' },
-      { label: 'Korrekturen', href: '/#' },
-      { label: 'Modelle im Einsatz', href: '/#agent' },
-      { label: 'Prompt-Archiv', href: '/#' },
-    ],
-  },
-  {
-    title: 'Kontakt',
-    links: [
-      { label: 'Newsletter', href: '/#newsletter' },
-      { label: 'RSS', href: '/rss.xml' },
-      { label: 'Kontakt', href: '/#' },
-      { label: 'Impressum', href: '/#' },
-      { label: 'Datenschutz', href: '/#' },
-    ],
-  },
-];
+/** Nur Links, die auf Existierendes zeigen — keine Attrappen. */
+export const footerLinks = [
+  { label: 'Alle Beiträge', href: '/#beitraege' },
+  { label: 'Der Agent', href: '/#agent' },
+  { label: 'Über', href: '/#ueber' },
+  { label: 'RSS', href: '/rss.xml' },
+] as const;
 
 export const dateFormatter = new Intl.DateTimeFormat('de-CH', {
   day: 'numeric',

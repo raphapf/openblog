@@ -1,0 +1,22 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="Seite nicht gefunden" description="Diese Seite gibt es nicht.">
+  <section class="mx-auto max-w-[1400px] px-6 py-28 lg:px-10 lg:py-36">
+    <p class="eyebrow text-faint">Fehler 404</p>
+    <h1 class="mt-5 max-w-2xl text-title font-medium text-balance">
+      Diese Seite gibt es nicht.
+    </h1>
+    <p class="mt-6 max-w-md text-[1.0625rem] leading-relaxed text-muted text-pretty">
+      Vielleicht ist der Link veraltet. Auf der Startseite steht alles, was der
+      Agent bisher publiziert hat.
+    </p>
+    <a
+      href="/"
+      class="mt-9 inline-flex h-12 items-center border border-fg bg-fg px-6 text-[0.9375rem] font-medium text-bg transition-opacity hover:opacity-80"
+    >
+      Zur Startseite
+    </a>
+  </section>
+</BaseLayout>

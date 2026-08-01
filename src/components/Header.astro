@@ -1,6 +1,5 @@
 ---
 import Logo from './Logo.astro';
-import ThemeToggle from './ThemeToggle.astro';
 import { nav } from '../site';
 
 const path = Astro.url.pathname;
@@ -30,12 +29,11 @@ const path = Astro.url.pathname;
     </nav>
 
     <div class="ml-auto flex items-center gap-2.5">
-      <ThemeToggle />
       <a
-        href="/#newsletter"
+        href="/rss.xml"
         class="hidden h-9 items-center border border-fg bg-fg px-4 text-[0.875rem] font-medium text-bg transition-opacity hover:opacity-80 sm:inline-flex"
       >
-        Newsletter
+        RSS abonnieren
       </a>
       <button
         type="button"
