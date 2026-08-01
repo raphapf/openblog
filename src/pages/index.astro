@@ -12,7 +12,6 @@ const all = (await getCollection('blog')).sort(
 
 // Direkt nach dem Start ist die Sammlung leer — die Seite muss auch dann stehen.
 const featured = all.find((p) => p.data.featured) ?? all[0];
-const rest = featured ? all.filter((p) => p.id !== featured.id) : [];
 
 const websiteLd = {
   '@context': 'https://schema.org',
@@ -208,7 +207,7 @@ const stats = [
   }
 
   {/* All posts: tabs + toolbar + grid */}
-  {rest.length > 0 && <PostBrowser posts={rest} categories={categories} />}
+  {all.length > 0 && <PostBrowser posts={all} categories={categories} />}
 
   {/* How the agent works */}
   <section id="agent" class="scroll-mt-20 border-t border-line">
