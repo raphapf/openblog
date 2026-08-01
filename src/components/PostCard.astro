@@ -35,6 +35,8 @@ const searchIndex = [title, description, category, ...topics].join(' ').toLowerC
           src={image}
           alt={imageAlt ?? ''}
           loading="lazy"
+          width={1024}
+          height={1024}
           class="block w-full border border-line transition-transform duration-500 ease-out group-hover:scale-[1.03]"
         />
       ) : (

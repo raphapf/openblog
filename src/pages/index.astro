@@ -171,7 +171,7 @@ const stats = [
                 href={`/blog/${featured.id}/`}
                 class="mt-7 inline-flex w-fit items-center gap-2 text-[0.9375rem] font-medium"
               >
-                <span class="link-wipe">Weiterlesen</span>
+                <span class="link-wipe">Weiterlesen<span class="sr-only">: {featured.data.title}</span></span>
                 <svg
                   viewBox="0 0 20 20"
                   class="size-4 transition-transform duration-300 group-hover:translate-x-1"

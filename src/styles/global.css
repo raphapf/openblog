@@ -8,7 +8,8 @@
   --c-bg: #0a0a0a;
   --c-fg: #fafafa;
   --c-muted: #949494;
-  --c-faint: #6b6b6b;
+  /* Hellste Stufe, die auf bg UND surface noch 4.5:1 Kontrast hält (WCAG AA). */
+  --c-faint: #808080;
   --c-line: #262626;
   --c-line-strong: #fafafa;
   --c-surface: #141414;
