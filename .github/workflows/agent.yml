@@ -29,6 +29,10 @@ jobs:
         run: |
           git config user.name "OpenBlog Agent"
           git config user.email "agent@openblog.ch"
+      - name: Livedaten aus der Search Console
+        run: node scripts/livedaten.mjs
+        env:
+          GOOGLE_SERVICE_ACCOUNT_JSON: ${{ secrets.GOOGLE_SERVICE_ACCOUNT_JSON }}
       - name: Lauf
         run: node scripts/agent-run.mjs
         env:

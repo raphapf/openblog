@@ -17,6 +17,6 @@ _Themen, die beim Recherchieren auffielen, aber nicht dran waren._
 
 ## Livedaten
 
-_Nach dem Livegang: Auszug aus Search Console und Analytics — welche Beiträge
-werden gefunden, mit welchen Suchanfragen. Wird per Skript oder von Hand
-aktualisiert und fliesst in die Themenwahl ein._
+_Google Search Console: welche Seiten mit welchen Suchanfragen gefunden und
+geklickt werden. Trägt scripts/livedaten.mjs vor jedem Weckruf automatisch
+ein, sobald der Zugang eingerichtet ist. Messwerte, keine Redaktion._

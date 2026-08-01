@@ -99,6 +99,7 @@ scripts/
   agent-run.mjs        ein kompletter Lauf des schreibenden Agenten
   openrouter.mjs       Recherche, Texte und Bilder über OpenRouter
   dither.mjs           Bild → echtes Schwarzweiss (ein Bit)
+  livedaten.mjs        Search-Console-Zahlen → Journal (vor jedem Weckruf)
   hostinger.mjs        DNS und Domains über die Hostinger-API
 docs/
   bildsprache.md       Gestaltungsvorgabe für Bilder
