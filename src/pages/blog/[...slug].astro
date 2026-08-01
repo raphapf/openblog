@@ -4,7 +4,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import PostVisual from '../../components/PostVisual.astro';
 import PostCard from '../../components/PostCard.astro';
 import CtaBand from '../../components/CtaBand.astro';
-import { site, dateFormatter } from '../../site';
+import { site, dateFormatter, jsonLd } from '../../site';
 
 export async function getStaticPaths() {
   const posts = await getCollection('blog');
@@ -76,8 +76,8 @@ const breadcrumbLd = {
   ogImageWidth={image ? 1254 : 1200}
   ogImageHeight={image ? 1254 : 630}
 >
-  <script slot="head" type="application/ld+json" set:html={JSON.stringify(articleLd)} />
-  <script slot="head" type="application/ld+json" set:html={JSON.stringify(breadcrumbLd)} />
+  <script slot="head" type="application/ld+json" set:html={jsonLd(articleLd)} />
+  <script slot="head" type="application/ld+json" set:html={jsonLd(breadcrumbLd)} />
   {/* Reading progress — a single hairline, nothing more. */}
   <div
     class="fixed top-16 left-0 z-40 h-0.5 w-full bg-transparent"

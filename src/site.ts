@@ -33,6 +33,12 @@ export const footerLinks = [
   { label: 'Über', href: '/#ueber' },
 ] as const;
 
+/**
+ * JSON-LD sicher in ein <script>-Tag einbetten. Ein «<» im Inhalt (etwa ein
+ * «</script>» in einem Beitragstitel) würde das Tag sonst vorzeitig schliessen.
+ */
+export const jsonLd = (data: unknown) => JSON.stringify(data).replace(/</g, '\\u003c');
+
 export const dateFormatter = new Intl.DateTimeFormat('de-CH', {
   day: 'numeric',
   month: 'long',

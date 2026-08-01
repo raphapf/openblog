@@ -1,5 +1,6 @@
 import { defineCollection, z } from 'astro:content';
 import { glob } from 'astro/loaders';
+import { categories } from './site';
 
 const blog = defineCollection({
   loader: glob({ pattern: '**/*.md', base: './src/content/blog' }),
@@ -8,7 +9,7 @@ const blog = defineCollection({
     /** The dek — one italic sentence under the headline. */
     description: z.string(),
     pubDate: z.coerce.date(),
-    category: z.string(),
+    category: z.enum(categories),
     /** Secondary tags, shown in the meta bar as "Themen". */
     topics: z.array(z.string()).default([]),
     readingTime: z.number(),
@@ -18,7 +19,7 @@ const blog = defineCollection({
     imageAlt: z.string().optional(),
     author: z.string().default('OpenBlog Agent'),
     /** The model that produced the piece — part of the transparency angle. */
-    model: z.string().default('Claude Opus 5'),
+    model: z.string().default('Claude Sonnet 5'),
     featured: z.boolean().default(false),
   }),
 });

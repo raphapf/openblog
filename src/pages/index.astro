@@ -4,7 +4,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import PostBrowser from '../components/PostBrowser.astro';
 import PostVisual from '../components/PostVisual.astro';
 import CtaBand from '../components/CtaBand.astro';
-import { site, categories, dateFormatter } from '../site';
+import { site, categories, dateFormatter, jsonLd } from '../site';
 
 const all = (await getCollection('blog')).sort(
   (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
@@ -60,7 +60,7 @@ const stats = [
 ---
 
 <BaseLayout>
-  <script slot="head" type="application/ld+json" set:html={JSON.stringify(websiteLd)} />
+  <script slot="head" type="application/ld+json" set:html={jsonLd(websiteLd)} />
   {/* Breadcrumb */}
   <nav aria-label="Brotkrumen" class="border-b border-line">
     <div class="mx-auto max-w-[1400px] px-6 py-3.5 lg:px-10">

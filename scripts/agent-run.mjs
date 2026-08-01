@@ -104,6 +104,27 @@ function feld(text, name) {
   return m ? m[1].trim().replace(/^\*+|\*+$/g, '').trim() : null;
 }
 
+/**
+ * Neutralisiert rohes HTML im Beitrag. Der Beitrag ist Markdown und braucht
+ * kein HTML — aber die Websuche liefert dem Agenten fremden Text, und eine
+ * präparierte Seite könnte ihn zu einem <script> verleiten, das Astro sonst
+ * unverändert auf openblog.ch ausliefern würde. Der Lauf geht danach normal
+ * weiter; was neutralisiert wurde, steht im Log.
+ */
+function entschaerfeMarkdown(text) {
+  let html = 0;
+  let links = 0;
+  let out = text.replace(/<(https?:\/\/[^>\s]+)>/g, '$1'); // Autolinks: GFM verlinkt die blanke URL auch ohne spitze Klammern
+  out = out.replace(/<(?=[a-zA-Z!/?])/g, () => (html++, '&lt;'));
+  out = out.replace(
+    /(\]\(\s*|^ {0,3}\[[^\]]+\]:\s*)(?:javascript|data|vbscript):[^\s)]*/gim,
+    (_, davor) => (links++, `${davor}#`),
+  );
+  if (html) console.warn(`Achtung: rohes HTML im Beitrag neutralisiert (${html} Stelle(n)).`);
+  if (links) console.warn(`Achtung: Link(s) mit unzulässigem Schema entfernt (${links}).`);
+  return out;
+}
+
 // ── 0. Entscheiden: schreibt der Agent heute? ────────────────────────────────
 // Der Weckruf kommt täglich; ob daraus ein Beitrag wird, entscheidet der Agent
 // selbst, anhand seines Journals. Der Richtwert steht in docs/agent.md.
@@ -155,7 +176,9 @@ const topics = feld(antwort, 'TOPICS').split(',').map((t) => t.trim()).filter(Bo
 const szene = feld(antwort, 'SZENE');
 const imageAlt = feld(antwort, 'IMAGEALT');
 const journalZeile = feld(antwort, 'JOURNAL');
-const body = antwort.slice(antwort.search(/^\s*\**BODY\**\s*:/m)).replace(/^\s*\**BODY\**\s*:\s*/, '').trim();
+const body = entschaerfeMarkdown(
+  antwort.slice(antwort.search(/^\s*\**BODY\**\s*:/m)).replace(/^\s*\**BODY\**\s*:\s*/, '').trim(),
+);
 
 if (!slug || slugs.includes(slug)) throw new Error(`Abbruch: Slug «${slug}» ist leer oder existiert schon.`);
 if (!kategorien.includes(category)) throw new Error(`Abbruch: Kategorie «${category}» ist nicht in src/site.ts.`);
