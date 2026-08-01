@@ -8,3 +8,6 @@ node_modules/
 .env
 .env.*
 !.env.example
+
+# Google-Dienstkonto für die Search Console (scripts/livedaten.mjs)
+.google-service-account.json
