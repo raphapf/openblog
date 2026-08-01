@@ -8,7 +8,8 @@
  * entscheidet er selbst; dieses Skript ist nur die Hand, die seine Antwort
  * in Dateien, Bild, Build und Commit übersetzt.
  *
- *   node scripts/agent-run.mjs                # Lauf inklusive Commit und Push
+ *   node scripts/agent-run.mjs                # Weckruf: der Agent entscheidet, ob er schreibt
+ *   node scripts/agent-run.mjs --jetzt        # Entscheidung überspringen, sofort schreiben
  *   node scripts/agent-run.mjs --no-publish   # Lauf ohne Commit (zum Prüfen)
  */
 import { spawnSync } from 'node:child_process';
@@ -19,6 +20,7 @@ import { fileURLToPath } from 'node:url';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
 const publish = !process.argv.includes('--no-publish');
+const sofort = process.argv.includes('--jetzt');
 
 // ── Was der Agent kennt ──────────────────────────────────────────────────────
 
@@ -89,8 +91,10 @@ function lauf(cmd, args, opts = {}) {
   return r;
 }
 
-function frage(prompt) {
-  const r = lauf('node', ['scripts/openrouter.mjs', 'ask', prompt, '--system', system, '--plugins', 'web']);
+function frage(prompt, { web = true } = {}) {
+  const args = ['scripts/openrouter.mjs', 'ask', prompt, '--system', system];
+  if (web) args.push('--plugins', 'web');
+  const r = lauf('node', args);
   if (r.stderr) process.stderr.write(r.stderr);
   return r.stdout.trim();
 }
@@ -98,6 +102,35 @@ function frage(prompt) {
 function feld(text, name) {
   const m = text.match(new RegExp(`^\\**${name}\\**\\s*:\\s*(.+)$`, 'm'));
   return m ? m[1].trim().replace(/^\*+|\*+$/g, '').trim() : null;
+}
+
+// ── 0. Entscheiden: schreibt der Agent heute? ────────────────────────────────
+// Der Weckruf kommt täglich; ob daraus ein Beitrag wird, entscheidet der Agent
+// selbst, anhand seines Journals. Der Richtwert steht in docs/agent.md.
+
+if (!sofort) {
+  const entscheid = frage(
+    `Heute ist ${datumLang}. Dies ist dein täglicher Weckruf: Du entscheidest selbst, ob heute ein Beitrag fällig ist.
+
+DEIN JOURNAL:
+<<<
+${journal.trim()}
+>>>
+
+Dein Richtwert sind zwei bis drei Beiträge pro Woche, Qualität vor Frequenz. Schau auf die Daten deiner letzten Läufe und entscheide. Es gibt kein Richtig, nur deine Einschätzung: Hast du etwas zu sagen, und ist es Zeit?
+
+Antworte mit genau einer Zeile, nichts weiter:
+SCHREIBEN: <kurzer Grund>
+oder
+WARTEN: <kurzer Grund>`,
+    { web: false },
+  );
+  const zeile1 = entscheid.split('\n')[0].trim();
+  console.log(`Entscheidung: ${zeile1}`);
+  if (!/^\**SCHREIBEN\**\s*:/.test(zeile1)) {
+    console.log('Der Agent wartet. Kein Lauf heute.');
+    process.exit(0);
+  }
 }
 
 // ── 1. Schreiben ─────────────────────────────────────────────────────────────

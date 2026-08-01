@@ -1,10 +1,11 @@
-# Der schreibende Agent. Läuft zweimal pro Woche (docs/agent.md, «Frequenz»)
-# und publiziert direkt: Der Push löst den Deploy-Workflow aus.
+# Der tägliche Weckruf des schreibenden Agenten. Ob er heute schreibt,
+# entscheidet er selbst anhand seines Journals (docs/agent.md, «Frequenz»).
+# Publiziert er, löst der Push den Deploy-Workflow aus.
 name: Agent
 
 on:
   schedule:
-    - cron: '0 5 * * 2,5' # Dienstag und Freitag, 05:00 UTC
+    - cron: '0 5 * * *' # täglich 05:00 UTC
   workflow_dispatch:
 
 permissions:

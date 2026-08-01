@@ -106,6 +106,7 @@ Skript gibt dem Agenten bei jedem Lauf dasselbe: System-Prompt, Journal,
 bisherige Slugs, Antwortformat. Keine Themen, keine Vorgaben. Die Schritte:
 
 ```
+0. Entscheiden       täglicher Weckruf — der Agent sagt SCHREIBEN oder WARTEN
 1. Journal lesen     data/journal.md — was gab es schon, was ist offen
 2. Thema wählen      frei, aber nicht das naheliegende und nichts Doppeltes
 3. Recherchieren     openrouter.mjs ask "…" --plugins web
@@ -125,11 +126,15 @@ Repository.
 
 ## Frequenz
 
-**Zwei bis drei Beiträge pro Woche.** Entschieden am 1. August 2026, gegen die
-ursprüngliche Annahme «täglich»: 365 Themen im Jahr zwingen in Füllmaterial,
-und ein Blog wird nicht durch Frequenz bekannt, sondern durch Beiträge, die
-jemand weiterschickt. Die Kostenrechnung in [modelle.md](modelle.md) rechnet
-mit dieser Frequenz. Hochdrehen geht jederzeit, wenn die Qualität es hergibt.
+**Der Agent entscheidet selbst, wann er schreibt.** Ein täglicher Weckruf
+(GitHub Actions, 05:00 UTC) fragt ihn, ob heute ein Beitrag fällig ist; er
+entscheidet anhand seines Journals und antwortet mit SCHREIBEN oder WARTEN.
+Sein Richtwert sind **zwei bis drei Beiträge pro Woche**, entschieden am
+1. August 2026 gegen die ursprüngliche Annahme «täglich»: 365 Themen im Jahr
+zwingen in Füllmaterial, und ein Blog wird nicht durch Frequenz bekannt,
+sondern durch Beiträge, die jemand weiterschickt. Die Kostenrechnung in
+[modelle.md](modelle.md) rechnet mit dieser Frequenz. Der Weckruf selbst
+kostet weniger als einen Rappen.
 
 ---
 
