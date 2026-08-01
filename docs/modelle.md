@@ -10,27 +10,29 @@ nicht aus Ranglisten übernommen.
 | Aufgabe | Modell | Kosten je Beitrag |
 |---|---|---|
 | Recherche und Text | `anthropic/claude-sonnet-5` | ~0.12 $ |
-| Bild | `google/gemini-3.1-flash-lite-image` | ~0.034 $ |
+| Bild | `openai/gpt-5.4-image-2` | ~0.23 $ |
 
-**Rund 0.15 $ pro Beitrag, bei einem Beitrag täglich also etwa 4.60 $ im Monat.**
-Beides steht als Voreinstellung in `scripts/openrouter.mjs` und lässt sich über
-`.env` überschreiben.
+**Rund 0.35 $ pro Beitrag, bei einem Beitrag täglich also etwa 10.60 $ im
+Monat.** Beides steht als Voreinstellung in `scripts/openrouter.mjs` und lässt
+sich über `.env` überschreiben.
 
-Das Bildmodell ist das günstigste im Test und war zunächst wegen zweier Mängel
-zurückgestellt. Beide sind inzwischen behoben, nicht umgangen:
+**Warum das teuerste Bildmodell?** Der Bildstil wurde am 1. August 2026 neu
+festgelegt (siehe [Bildsprache, Abschnitt 5](bildsprache.md)): dichter
+Retro-Science-Fiction-Rasterdruck, definiert anhand eines mit ChatGPT
+erzeugten Referenzbilds. `gpt-5.4-image-2` ist dasselbe Modell hinter
+OpenRouter und traf den Stil im Test mit einer neuen Szene auf Anhieb —
+verlustfreies PNG, keine Schrift im Bild, sauber auf 1 Bit rasterbar. Die
+günstigeren Gemini-Modelle waren für den früheren Gravur-Stil erprobt; ob sie
+dieses Halbton-Raster treffen, ist ungeprüft. Sechs Dollar Unterschied im
+Monat sind das falsche Sparfeld, wenn das Bild der erste Eindruck jedes
+Beitrags ist.
 
-**Zahlen im Bild** — `no text` allein genügt diesem Modell nicht. Mit dem
-ausbuchstabierten Schriftbann aus [Abschnitt 9 der Bildsprache](bildsprache.md)
-lieferte es in zwei von zwei Läufen ein Bild ohne eine einzige Ziffer. Die
-Sichtprüfung in Schritt 4 des Ablaufs bleibt trotzdem Pflicht.
-
-**JPEG statt PNG** — `openrouter.mjs image` wandelt jetzt selbsttätig um, sobald
-das Ziel auf `.png` endet. Es versucht der Reihe nach `sips`, `magick`,
-`convert` und `ffmpeg`, damit derselbe Aufruf auf macOS und auf einem
-Linux-Läufer funktioniert. Der Umweg über JPEG bleibt ein Qualitätsverlust: Die
-Kompressionsartefakte sitzen dort, wo die feine Schraffur sitzt. Bei einem
-Motiv, dessen Ergebnis nicht überzeugt, ist ein Lauf mit `--model
-google/gemini-3-pro-image` die erste Gegenprobe.
+Für den früheren Stil (Strichgravur, freigestellte Apparate) bleibt
+`google/gemini-3.1-flash-lite-image` die erprobte, günstige Wahl — mit zwei
+einst behobenen Mängeln: Der Schriftbann muss ausbuchstabiert werden
+(Abschnitt 9 der Bildsprache), und das gelieferte JPEG wandelt
+`openrouter.mjs image` selbsttätig nach PNG, sobald das Ziel auf `.png`
+endet (der Reihe nach über `sips`, `magick`, `convert`, `ffmpeg`).
 
 ---
 
@@ -62,12 +64,17 @@ Gegen `gpt-5.4-image-2` sprach nur der Preis: 60 % teurer bei gleichwertigem
 Ergebnis. Es zeichnet etwas mehr Punktschraffur, was nach dem Dithern minimal
 grauer wirkt. Als Zweitmeinung taugt es, wenn ein Motiv bei Gemini nicht sitzt.
 
-**Nachtrag.** Beide Mängel der Flash-Modelle liessen sich beheben — die
+**Nachtrag 1.** Beide Mängel der Flash-Modelle liessen sich beheben — die
 Beschriftung durch einen deutlicheren Prompt, das JPEG durch eine Umwandlung im
-Skript. Damit fiel die Entscheidung auf `flash-lite`: ein Viertel des Preises
-bei einer Zeichenqualität, die im Vergleich niemand als schwächer erkannt
-hätte. Der Vergleich oben bleibt trotzdem stehen, weil er zeigt, worauf bei
-einem Modellwechsel zu achten ist.
+Skript. Damit fiel die Entscheidung zunächst auf `flash-lite`: ein Viertel des
+Preises bei einer Zeichenqualität, die im Vergleich niemand als schwächer
+erkannt hätte.
+
+**Nachtrag 2.** Mit dem Stilwechsel zum Rasterdruck (siehe oben) wurde
+`gpt-5.4-image-2` zur Voreinstellung: Der neue Stil ist an einem
+ChatGPT-Referenzbild definiert, und dieses Modell reproduziert ihn belegt.
+Der Vergleich oben bleibt stehen, weil er zeigt, worauf bei einem
+Modellwechsel zu achten ist.
 
 Nicht getestet, weil nicht über OpenRouter erreichbar: FLUX und Midjourney.
 Beide gelten für Illustration als stark. Wer sie will, braucht einen zweiten

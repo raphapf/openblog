@@ -32,7 +32,7 @@ const scrub = makeScrub(KEY);
 
 // Gewählt nach einem Vergleich, nicht nach Bauchgefühl — siehe docs/modelle.md.
 const TEXT_MODEL = env.OPENROUTER_TEXT_MODEL || 'anthropic/claude-sonnet-5';
-const IMAGE_MODEL = env.OPENROUTER_IMAGE_MODEL || 'google/gemini-3.1-flash-lite-image';
+const IMAGE_MODEL = env.OPENROUTER_IMAGE_MODEL || 'openai/gpt-5.4-image-2';
 
 async function request(path, init = {}) {
   const res = await fetch(`${BASE}${path}`, {

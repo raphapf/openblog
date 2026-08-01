@@ -102,45 +102,41 @@ Verfahren für Titelbilder mit Anspruch.
 
 ---
 
-## 5. Motive
+## 5. Stil und Motive
 
-Der Blog handelt von einem Agenten, der schreibt. Die Bilder sollen das **nicht
-bebildern** — kein Roboter am Schreibtisch, keine Gehirne mit Platinen, keine
-Hände, die sich berühren. Solche Motive sind der Grund, warum KI-Blogs
-austauschbar aussehen.
+Der Stil für Beitragsbilder ist **Retro-Science-Fiction im Rasterdruck**:
+dichte Szenen aus tiefem Schwarz und reinem Weiss, sichtbar gemacht durch
+grobes Halbton-Raster, Scanlines und körnige Druckstrukturen — Siebdruck,
+Risograph, alte gerasterte Zeitungsfotografie. Festgelegt am 1. August 2026
+anhand eines Referenzbilds (Astronaut berührt eine Maschine), dessen Machart
+die Vorlage in Abschnitt 9 wörtlich übernimmt.
 
-Stattdessen drei Register:
+**Das Motiv folgt dem Thema des Beitrags.** Die Szene übersetzt den Kern des
+Textes in diese Bildwelt: Raumfahrt, Maschinenhallen, Apparate, Archive,
+Signale. Ein Beitrag über Gedächtnis wird zur Archivhalle voller Bandspulen;
+einer über Übersetzung zur Vermittlungszentrale; einer über Fehler zum
+havarierten Apparat. Die Übersetzung darf frei sein, aber sie muss da sein —
+kein beliebiges Weltraumbild über einem beliebigen Text.
 
-**Apparate.** Werkzeuge und Mechanik, isoliert freigestellt: Sextant,
-Theodolit, Druckerpresse, Zirkel, Fernsprechvermittlung, Lochkarte,
-Wetterstation. Dinge, die eine Aufgabe erfüllen und deren Funktion man ansieht.
+Astronauten, Maschinen und Roboter sind in diesem Register ausdrücklich
+erlaubt — als Figuren einer erzählten Szene, nicht als Stockfoto-Metapher
+(«Roboterhand tippt auf Laptop» bleibt verboten).
 
-Ausgenommen sind Gegenstände, die aus Schrift bestehen. Ein Setzkasten voller
-Lettern liegt für einen Blog nahe, widerspricht aber Abschnitt 6: Der Versuch
-ergab eine gleichmässig dunkle Fläche aus Buchstaben, mittig, ohne Schwerpunkt —
-also drei Regelverstösse auf einmal. Was ein Motiv im Kern ist, lässt sich nicht
-wegprompten.
-
-**Naturformen.** Vergrösserte Strukturen: Blattadern, Kristallgitter,
-Wolkenschichtung, Wellenmuster, Baumringe. Ordnung, die niemand entworfen hat.
-
-**Ereignisse.** Ein Moment, festgehalten: eine Explosion, ein Sprung, ein
-Aufprall, ein Funke, eine Welle im Bruch. In der Referenz sind das die
-sternförmigen Aufbrüche — sie geben der Seite ihre Energie.
-
-Wiederkehrende Motive sind erlaubt und erwünscht, solange die Ausführung variiert.
+Wiederkehrende Elemente sind erwünscht, solange die Szene variiert.
 
 ---
 
 ## 6. Komposition
 
-- **Ein Gegenstand.** Ein Bild zeigt eine Sache, nicht eine Szene.
-- **Freistellen.** Der Gegenstand steht im leeren Feld, ohne Hintergrundkulisse.
-- **Nah heran.** Lieber ein Ausschnitt, der über den Rand läuft, als ein
-  Gegenstand mit Luft ringsum.
-- **Hoher Kontrast.** Klare Lichter, klare Tiefen, wenig Mittelton — sonst
-  zerfällt das Bild beim Dithern zu Grieß.
-- **Mitte gemieden.** Der Schwerpunkt sitzt aus der Mitte versetzt.
+- **Eine Szene, ein Blickfang.** Das Bild ist dicht und bildfüllend, aber es
+  hat genau ein helles Hauptmotiv — eine Kugel, ein Fenster, eine leuchtende
+  Form —, an dem das Auge landet. Im Referenzbild ist das die grosse helle
+  Kreisform rechts.
+- **Dichter Grund.** Der Hintergrund ist gefüllt mit technischen Strukturen,
+  Kabeln, Lichtpunkten, Details. Leere gibt es nur dort, wo der Blickfang sitzt.
+- **Hoher Kontrast.** Flächige Schatten, klare Lichter, kein Mittelton als
+  Fläche — sonst zerfällt das Bild beim Dithern zu Grieß.
+- **Mitte gemieden.** Der Blickfang sitzt aus der Mitte versetzt.
 - **Kein Text im Bild.** Keine Schrift, keine Zahlen, keine Wortmarken. Typografie
   gehört auf die Seite, nicht ins Bild.
 
@@ -188,59 +184,52 @@ Fassung. `node scripts/dither.mjs --help` zeigt alles.
 
 ---
 
-## 9. Vorlagen für die Bilderzeugung
+## 9. Vorlage für die Bilderzeugung
 
-Bildmodelle folgen englischen Angaben zuverlässiger. `{MOTIV}` ersetzen.
-
-**Der Schriftbann muss ausbuchstabiert werden.** `no text` allein genügt nicht:
-Im Vergleich beschrifteten zwei von vier Modellen die Gradskala eines Sextanten
-mit Zahlen, obwohl `no text` im Prompt stand. Ein Modell hört auf `no text`,
-denkt dabei aber an Wörter, nicht an Ziffern. Deshalb steht in jeder Vorlage
-unten derselbe ausführliche Satz. Mit ihm lieferte dasselbe Modell in zwei von
-zwei Läufen ein Bild ohne eine einzige Zahl. Der Satz ist nicht optional.
+Es gibt **eine** Vorlage. Sie stammt wörtlich vom Referenzbild, das den Stil
+festgelegt hat, und ist mit `openai/gpt-5.4-image-2` erprobt — einmal mit der
+Originalszene, einmal mit einer anderen: Beide Läufe trafen den Stil, beide
+ohne Schrift im Bild. Nur `{SZENE}` wird ersetzt: zwei bis drei Sätze, die das
+Thema des Beitrags in die Bildwelt aus Abschnitt 5 übersetzen — Hauptmotiv,
+Handlung, ein heller Blickfang.
 
 ```
-Completely unlabelled: no numbers, no numerals, no digits, no letters,
-no words, no scale markings, no signature. Every gauge and scale is
-blank, showing tick marks only.
+Abstrakte futuristische Szene im extrem kontrastreichen
+Schwarz-Weiss-Duotone-Stil. {SZENE}. Der gesamte Hintergrund ist dicht
+gefüllt mit technischen Strukturen, Kabeln, Schläuchen, Lichtpunkten und
+abstrakten elektronischen Details. Die Komposition wirkt chaotisch,
+räumlich und geheimnisvoll. Das komplette Bild besteht ausschliesslich
+aus tiefem Schwarz und reinem Weiss. Keine Farbe, kein Blau und keine
+Graustufen. Schwarzer Grund mit weissen Rasterpunkten und weissen
+Linien. Alle Personen, Objekte und Lichtflächen werden durch ein grobes
+horizontales Halftone-Raster, Punktmuster, Scanlines und körnige
+Druckstrukturen sichtbar. Starker Siebdruck-Look, Risograph-Ästhetik,
+alte gerasterte Zeitungsfotografie, experimentelle
+Science-Fiction-Grafik, absichtliche Druckfehler, unregelmässige
+Punktdichte und leichte analoge Verzerrungen. Sehr hoher Kontrast,
+flächige Schatten, raue Textur, keine scharfen digitalen Konturen.
+Quadratisches Bildformat, vollständig bildfüllende Komposition, keine
+Schrift, keine Logos und kein Rahmen.
 ```
 
-**Fotografisch (Verfahren A oder B):**
+Für das 16:10-Format den letzten Satz anpassen: `Querformat` statt
+`Quadratisches Bildformat`.
 
-```
-{MOTIV}, isolated on a plain white background, extreme high contrast
-black and white, harsh directional light, deep blacks, blown highlights,
-no mid-greys, macro detail, sharp focus, studio photograph, no people,
-no logos. Completely unlabelled: no numbers, no numerals, no digits,
-no letters, no words, no scale markings, no signature.
-```
+Beispiel für eine gelungene `{SZENE}` (Beitrag über Gedächtnis): *«Eine
+riesige Archivhalle voller Magnetbandmaschinen und Datenschränke; in der
+Mitte greift ein einzelner mechanischer Arm nach einer leuchtenden
+Bandspule.»*
 
-**Strichgravur (Verfahren D):**
+Zwei Hinweise aus früheren Tests, die weiter gelten:
 
-```
-{MOTIV}, pen and ink line engraving, dense cross-hatching, fine parallel
-line shading, antique encyclopedia illustration, woodcut and copperplate
-technique, pure black lines on plain white, no grey wash, no colour,
-centred object, high detail. Completely unlabelled: no numbers,
-no numerals, no digits, no letters, no words, no scale markings,
-no signature. Every gauge and scale is blank, showing tick marks only.
-```
-
-**Negative Fassung (Verfahren D, invers):**
-
-```
-{MOTIV}, white line engraving on solid pure black background, fine white
-hatching, scratchboard technique, glowing white linework, no grey,
-no colour. Completely unlabelled: no numbers, no numerals, no digits,
-no letters, no words, no scale markings, no signature.
-```
-
-Immer ausschliessen: `colour, gradient, soft shading, grey background,
-watermark, text, signature, blurry, 3d render, photorealistic skin`.
-
-Wichtig: Das Modell soll **kontrastreiches Schwarzweiss** liefern, nicht selbst
-dithern. Modellseitig erzeugtes „Pixel-Art-Dithering" wird unsauber. Das Raster
-kommt aus Schritt 3.
+- Das voreingestellte Modell liefert dichtes Halbton-Raster selbst — das ist
+  hier gewollt und Teil des Stils. Schritt 3 (Dithern) bleibt trotzdem
+  Pflicht, denn erst er zwingt jeden Bildpunkt auf reines Schwarz oder Weiss.
+- Wer auf ein **Gemini**-Modell ausweicht, muss den Schriftbann
+  ausbuchstabieren — `no text` allein genügt dort nicht, die Modelle
+  beschriften Skalen trotzdem mit Ziffern:
+  `Completely unlabelled: no numbers, no numerals, no digits, no letters,
+  no words, no scale markings, no signature.`
 
 ---
 
@@ -248,9 +237,10 @@ kommt aus Schritt 3.
 
 - Farbe, auch dezente Tönung
 - Flächiges Grau, Verläufe, weiche Schatten
-- Fotorealistische Menschen, insbesondere Gesichter mit Hauttönen
-- Roboter, Androiden, humanoide Maschinen
-- Gehirne, Neuronennetze, leuchtende Platinen, Datenströme
+- Fotorealistische Menschen, insbesondere Gesichter mit Hauttönen —
+  Figuren erscheinen nur gerastert, nie mit glatter Haut
+- Stockfoto-Metaphern: Roboterhand am Laptop, Gehirn mit Platinen,
+  leuchtende Neuronennetze, sich berührende Hände
 - Schrift, Zahlen, Wortmarken im Bild
 - Auf 3D getrimmte Darstellungen, Renderglanz, Spiegelungen
 - Rahmen und Schlagschatten — die Kachel bringt ihre eigene Haarlinie mit
