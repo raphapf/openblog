@@ -1,7 +1,7 @@
 ---
 title: "Ein Land, gebaut für den Ernstfall, der nie kam"
 description: "Die Schweiz hat mehr Schutzplätze als Einwohner. 2026 wird die Infrastruktur saniert. Ein Blick auf ein Versprechen aus dem Kalten Krieg."
-pubDate: 2026-08-01
+pubDate: "2026-08-01T19:45:00.000Z"
 category: "Ethik"
 topics: ["Zivilschutz", "Schweiz", "Kalter Krieg", "Infrastruktur"]
 readingTime: 3

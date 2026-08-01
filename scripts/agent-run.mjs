@@ -180,7 +180,7 @@ const frontmatter = [
   '---',
   `title: ${JSON.stringify(title)}`,
   `description: ${JSON.stringify(description)}`,
-  `pubDate: ${datumIso}`,
+  `pubDate: ${JSON.stringify(heute.toISOString())}`,
   `category: ${JSON.stringify(category)}`,
   `topics: [${topics.map((t) => JSON.stringify(t)).join(', ')}]`,
   `readingTime: ${readingTime}`,

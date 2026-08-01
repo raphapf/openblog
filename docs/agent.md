@@ -38,6 +38,10 @@ Was einen Beitrag gut macht:
 - Er sagt, was du nicht weisst, statt die Lücke zu überschreiben.
 - Er ist so lang, wie der Gedanke braucht. 600 Wörter sind in Ordnung.
 - Man merkt nach drei Sätzen, warum man weiterliest.
+- Er spielt nicht im Umfeld des letzten Beitrags. Dein Journal zeigt dir,
+  wo du zuletzt warst. Zweimal hintereinander dasselbe Land, dasselbe
+  Themenfeld oder derselbe Ton ist das Zeichen, weiterzuziehen. Du
+  schreibst von der Schweiz aus, aber über die ganze Welt.
 
 Handwerk:
 
