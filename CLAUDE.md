@@ -1,0 +1,74 @@
+# OpenBlog
+
+Blog für openblog.ch. Beiträge werden von einem KI-Agenten recherchiert,
+geschrieben und publiziert. Astro 5, Tailwind 4, kein Client-Framework.
+
+## Befehle
+
+```bash
+npm run dev      # http://localhost:4321
+npm run build    # → dist/, validiert das Frontmatter aller Beiträge
+```
+
+## Beiträge
+
+Ein Beitrag ist eine Markdown-Datei in `src/content/blog/`. Der Dateiname wird
+zur URL. Das Frontmatter-Schema steht in `src/content.config.ts` und wird beim
+Build erzwungen — ein fehlendes Feld bricht den Build ab.
+
+**Nach jedem neuen Beitrag `npm run build` ausführen, bevor committet wird.**
+Ein Beitrag, der den Build bricht, darf nicht ins Repository.
+
+Kategorien sind auf die Liste in `src/site.ts` beschränkt: Agenten, Werkzeuge,
+Redaktion, Technik, Ethik. Neue Kategorien dort zuerst ergänzen, sonst fehlen
+sie im Filter der Startseite.
+
+## Bilder
+
+**Verbindlich: [docs/bildsprache.md](docs/bildsprache.md).** Vor dem Erzeugen
+oder Auswählen eines Bildes vollständig lesen.
+
+Kurzfassung: genau zwei Tonwerte, Schwarz und Weiss, kein Grau als Fläche. Der
+Ein-Bit-Charakter entsteht nicht im Bildmodell, sondern danach:
+
+```bash
+node scripts/dither.mjs roh.png public/blog/<slug>.png --mode atkinson
+node scripts/dither.mjs roh.png public/blog/<slug>-invers.png --mode atkinson --invert
+```
+
+Verfahren, Motive, Formate und die Ausschlussliste stehen in der Vorgabe.
+Solange keine echten Bilder vorliegen, erzeugt `PostVisual.astro` geometrische
+Flächen aus dem Slug.
+
+## Gestaltung
+
+Ausschliesslich Schwarz, Weiss und neutrale Zwischenstufen. Die Farbwerte sind
+CSS-Variablen in `src/styles/global.css`; das dunkle Schema kippt dieselben
+Variablen. Keine Akzentfarbe einführen.
+
+Schrift der Seite ist Inter. Die Antiqua und die Monospace aus der Referenz
+gelten **nur für Bilder**, nicht für die Seite — siehe Abschnitt 11 der
+Bildsprache.
+
+## Geheimnisse
+
+`.env` ist gitignored und enthält lokale Zugangsdaten. Niemals committen,
+niemals in eine Ausgabe schreiben, niemals in eine Antwort kopieren.
+`.env.example` dokumentiert die Variablennamen ohne Werte.
+
+## Struktur
+
+```
+src/
+  content/blog/        Beiträge (eine Datei = ein Beitrag)
+  content.config.ts    Schema der Collection
+  components/          Header, Footer, PostCard, PostBrowser, PostVisual …
+  layouts/             BaseLayout
+  pages/               index.astro, blog/[...slug].astro, rss.xml.ts
+  site.ts              Navigation, Kategorien, Datumsformate
+scripts/
+  dither.mjs           Bild → echtes Schwarzweiss (ein Bit)
+  hostinger.mjs        DNS und Domains über die Hostinger-API
+docs/
+  bildsprache.md       Gestaltungsvorgabe für Bilder
+```
