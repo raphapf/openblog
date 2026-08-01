@@ -5,8 +5,9 @@
  * Der Token wird aus .env gelesen und niemals ausgegeben — auch nicht in
  * Fehlermeldungen. Wenn ein Wert nach einem Token aussieht, wird er maskiert.
  *
- *   node scripts/hostinger.mjs probe        # Token testen, Rechte ermitteln
- *   node scripts/hostinger.mjs get <pfad>   # beliebigen GET-Endpunkt abfragen
+ *   node scripts/hostinger.mjs probe               # Token testen, Rechte ermitteln
+ *   node scripts/hostinger.mjs get <pfad>          # beliebigen GET-Endpunkt abfragen
+ *   node scripts/hostinger.mjs put <pfad> '<json>' # Endpunkt mit JSON-Rumpf aufrufen
  *
  * Doku: https://developers.hostinger.com
  */
@@ -25,14 +26,17 @@ const TOKEN = requireKey(
 /** Verhindert, dass der Token je in einer Ausgabe auftaucht. */
 const scrub = makeScrub(TOKEN);
 
-async function request(path) {
+async function request(path, { method = 'GET', json } = {}) {
   const url = path.startsWith('http') ? path : `${BASE}${path}`;
   const res = await fetch(url, {
+    method,
     headers: {
       Authorization: `Bearer ${TOKEN}`,
       Accept: 'application/json',
       'User-Agent': 'openblog-deploy/0.1',
+      ...(json !== undefined ? { 'Content-Type': 'application/json' } : {}),
     },
+    ...(json !== undefined ? { body: JSON.stringify(json) } : {}),
   });
   const text = await res.text();
   let body;
@@ -102,7 +106,24 @@ async function get(path) {
   console.log(scrub(typeof body === 'string' ? body : JSON.stringify(body, null, 2)));
 }
 
-const [cmd, arg] = process.argv.slice(2);
+async function put(path, jsonText) {
+  if (!path || !jsonText) {
+    console.error("Beispiel: node scripts/hostinger.mjs put /dns/v1/zones/openblog.ch '{\"zone\":[…]}'");
+    process.exit(1);
+  }
+  let json;
+  try {
+    json = JSON.parse(jsonText);
+  } catch {
+    console.error('Der zweite Parameter ist kein gültiges JSON.');
+    process.exit(1);
+  }
+  const { status, body } = await request(path, { method: 'PUT', json });
+  console.log(`HTTP ${status}`);
+  console.log(scrub(typeof body === 'string' ? body : JSON.stringify(body, null, 2)));
+}
+
+const [cmd, arg, arg2] = process.argv.slice(2);
 
 switch (cmd) {
   case 'probe':
@@ -112,7 +133,10 @@ switch (cmd) {
   case 'get':
     await get(arg);
     break;
+  case 'put':
+    await put(arg, arg2);
+    break;
   default:
-    console.error(`Unbekannter Befehl: ${cmd}\nVerfügbar: probe, get <pfad>`);
+    console.error(`Unbekannter Befehl: ${cmd}\nVerfügbar: probe, get <pfad>, put <pfad> <json>`);
     process.exit(1);
 }
