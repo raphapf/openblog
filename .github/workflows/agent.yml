@@ -1,6 +1,7 @@
 # Der tägliche Weckruf des schreibenden Agenten. Ob er heute schreibt,
 # entscheidet er selbst anhand seines Journals (docs/agent.md, «Frequenz»).
-# Publiziert er, löst der Push den Deploy-Workflow aus.
+# Ein Push mit dem eingebauten Workflow-Token löst keine weiteren Workflows
+# aus, darum stösst der letzte Schritt den Deploy selbst an.
 name: Agent
 
 on:
@@ -10,6 +11,7 @@ on:
 
 permissions:
   contents: write
+  actions: write
 
 concurrency:
   group: agent
@@ -37,3 +39,10 @@ jobs:
         run: node scripts/agent-run.mjs
         env:
           OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+      - name: Deploy anstossen, falls publiziert wurde
+        run: |
+          if [ "$(git rev-parse HEAD)" != "$GITHUB_SHA" ]; then
+            gh workflow run deploy.yml --ref main
+          fi
+        env:
+          GH_TOKEN: ${{ github.token }}
