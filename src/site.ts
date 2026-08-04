@@ -15,17 +15,6 @@ export const nav = [
   { label: 'Über', href: '/#ueber' },
 ] as const;
 
-/** Category order on the homepage tab bar. `All` is prepended at runtime. */
-export const categories = [
-  'Agenten',
-  'Werkzeuge',
-  'Redaktion',
-  'Technik',
-  'Ethik',
-] as const;
-
-export type Category = (typeof categories)[number];
-
 /** Nur Links, die auf Existierendes zeigen, keine Attrappen. */
 export const footerLinks = [
   { label: 'Alle Beiträge', href: '/#beitraege' },

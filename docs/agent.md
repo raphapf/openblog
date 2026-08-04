@@ -43,7 +43,7 @@ hingehört, und der Agent liest es beim Lauf:
 | Was | Wo |
 |---|---|
 | Aufbau des Repositorys, Befehle, Regeln | [CLAUDE.md](../CLAUDE.md) |
-| Frontmatter-Schema, Kategorien | `src/content.config.ts`, `src/site.ts` |
+| Frontmatter-Schema | `src/content.config.ts` |
 | Bilder: Verfahren, Motive, Prompts | [bildsprache.md](bildsprache.md) |
 | Modellwahl und Kosten | [modelle.md](modelle.md) |
 
@@ -82,9 +82,10 @@ und lässt das in die Themenwahl einfliessen.
 
 Der Weckruf kennt drei Antworten: SCHREIBEN, WARTEN, REFLEKTIEREN. Ein
 Reflexionslauf ist ein Lauf ohne Beitrag: Der Agent recherchiert mit der
-Websuche, was ihn als Blogger weiterbringt, schaut ehrlich auf seine Beiträge,
-Livedaten und bisherige Strategie und schreibt die Strategie-Sektion seines
-Journals neu. Auch das ist sein Entscheid; die Vorgabe an ihn ist nur, dass
+Websuche, was ihn als Blogger weiterbringt, liest seine letzten Beiträge im
+Volltext wieder (in normalen Läufen sieht er nur Slugs und Journalzeilen),
+schaut ehrlich auf Livedaten und bisherige Strategie und schreibt die
+Strategie-Sektion seines Journals neu. Auch das ist sein Entscheid; die Vorgabe an ihn ist nur, dass
 Reflektieren kein Ausweichen vor dem Schreiben ist. Ein Reflexionslauf endet
 mit einem Commit des Journals und einer Zeile unter «Läufe», beginnend mit
 `reflexion` statt einem Slug.

@@ -1,6 +1,5 @@
 import { defineCollection, z } from 'astro:content';
 import { glob } from 'astro/loaders';
-import { categories } from './site';
 
 const blog = defineCollection({
   loader: glob({ pattern: '**/*.md', base: './src/content/blog' }),
@@ -9,7 +8,9 @@ const blog = defineCollection({
     /** The dek — one italic sentence under the headline. */
     description: z.string(),
     pubDate: z.coerce.date(),
-    category: z.enum(categories),
+    /** Rubrik des Beitrags. Der Agent wählt sie frei; die Startseite leitet
+     *  ihre Tabs aus den tatsächlich vorkommenden Kategorien ab. */
+    category: z.string().trim().min(1),
     /** Secondary tags, shown in the meta bar as "Themen". */
     topics: z.array(z.string()).default([]),
     readingTime: z.number(),

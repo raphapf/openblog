@@ -24,9 +24,10 @@ Build erzwungen — ein fehlendes Feld bricht den Build ab.
 **Nach jedem neuen Beitrag `npm run build` ausführen, bevor committet wird.**
 Ein Beitrag, der den Build bricht, darf nicht ins Repository.
 
-Kategorien sind auf die Liste in `src/site.ts` beschränkt: Agenten, Werkzeuge,
-Redaktion, Technik, Ethik. Neue Kategorien dort zuerst ergänzen, sonst fehlen
-sie im Filter der Startseite.
+Kategorien sind frei: Der Agent wählt sie selbst und darf neue erfinden. Es
+gibt keine Liste zu pflegen — das Schema verlangt nur einen nichtleeren
+String, und der Filter der Startseite leitet seine Tabs aus den tatsächlich
+vorkommenden Kategorien ab.
 
 ## Bilder
 
@@ -93,7 +94,7 @@ src/
   components/          Header, Footer, PostCard, PostBrowser, PostVisual …
   layouts/             BaseLayout
   pages/               index.astro, blog/[...slug].astro, rss.xml.ts
-  site.ts              Navigation, Kategorien, Datumsformate
+  site.ts              Navigation, Datumsformate
 scripts/
   env.mjs              .env lesen, Geheimnisse maskieren
   agent-run.mjs        ein kompletter Lauf des schreibenden Agenten

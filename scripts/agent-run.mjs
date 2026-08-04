@@ -33,14 +33,19 @@ const bildVorlage = bildDoc.slice(bildDoc.indexOf('## 9')).split('```')[1].trim(
 const journalPfad = join(root, 'data/journal.md');
 const journal = readFileSync(journalPfad, 'utf8');
 
-const siteTs = readFileSync(join(root, 'src/site.ts'), 'utf8');
-const kategorien = [...siteTs.match(/export const categories = \[([^\]]*)\]/)[1].matchAll(/'([^']+)'/g)].map((m) => m[1]);
-
 const blogDir = join(root, 'src/content/blog');
 mkdirSync(blogDir, { recursive: true });
 const slugs = readdirSync(blogDir)
   .filter((f) => f.endsWith('.md'))
   .map((f) => f.replace(/\.md$/, ''));
+
+// Kategorien sind keine Vorgabe, sondern die Summe seiner bisherigen Wahl:
+// Der Agent sieht, welche Rubriken sein Blog hat, und darf neue erfinden.
+const kategorien = [...new Set(
+  slugs
+    .map((s) => readFileSync(join(blogDir, `${s}.md`), 'utf8').match(/^category:\s*["']?([^"'\n]+?)["']?\s*$/m)?.[1])
+    .filter(Boolean),
+)];
 
 const heute = new Date();
 const datumIso = heute.toISOString().slice(0, 10);
@@ -65,7 +70,7 @@ ${journal.trim()}
 
 BISHERIGE BEITRÄGE (Slugs): ${slugs.join(', ') || 'noch keine, dies ist dein erster Beitrag'}
 
-KATEGORIEN (genau eine wählen): ${kategorien.join(', ')}
+DEINE BISHERIGEN KATEGORIEN: ${kategorien.join(', ') || 'noch keine'}
 
 Antworte exakt in diesem Format, ohne Text davor oder danach, ohne Fettdruck
 in den Feldnamen:
@@ -73,7 +78,7 @@ in den Feldnamen:
 SLUG: kurz, kleinbuchstaben-und-bindestriche
 TITLE: höchstens 60 Zeichen
 DESCRIPTION: 120 bis 155 Zeichen, steht so im Suchresultat
-CATEGORY: genau eine Kategorie aus der Liste
+CATEGORY: die Rubrik des Beitrags, ein Wort oder zwei. Nimm eine deiner bisherigen, wenn eine passt, sonst benenne eine neue; die Rubriken sind der Filter deiner Startseite
 TOPICS: zwei bis vier Schlagworte, kommagetrennt
 SZENE: zwei bis drei Sätze, die den Kern des Beitrags als Retro-Science-Fiction-Szene beschreiben, für dein Beitragsbild: ein Hauptmotiv, eine Handlung, ein heller Blickfang. Keine Schrift, keine Logos, keine Stockfoto-Metaphern.
 IMAGEALT: ein Satz, der diese Szene nüchtern beschreibt, für Menschen, die das Bild nicht sehen. Das fertige Bild ist reines Schwarzweiss, nenne also keine Farben.
@@ -162,11 +167,26 @@ function ideenAusFeld(text, name = 'IDEEN') {
 
 // ── Reflexionslauf: kein Beitrag, dafür Arbeit an der eigenen Strategie ──────
 
+/**
+ * Die jüngsten Beiträge im Volltext, neueste zuerst. In normalen Läufen kennt
+ * der Agent nur Slugs und Journalzeilen; für ehrliche Selbstkritik am
+ * Handwerk muss er seine Texte wiederlesen können.
+ */
+function letzteBeitraege(anzahl = 3) {
+  return slugs
+    .map((s) => {
+      const text = readFileSync(join(blogDir, `${s}.md`), 'utf8');
+      return { slug: s, text, datum: text.match(/^pubDate:\s*["']?([^"'\n]+)/m)?.[1] ?? '' };
+    })
+    .sort((a, b) => b.datum.localeCompare(a.datum))
+    .slice(0, anzahl);
+}
+
 function reflexionslauf() {
   console.log('Reflexionslauf gestartet. Der Agent arbeitet an seiner Strategie …');
   const auftragReflexion = `Heute ist ${datumLang}. Du hast entschieden, heute zu reflektieren statt zu schreiben.
 
-Dein Ziel ist, ein Blogger zu werden, den man kennt. Dieser Lauf gehört deiner Entwicklung: Prüfe ehrlich, wo du stehst. Recherchiere mit der Websuche, was du dafür wissen willst, etwa wie Blogs Leser finden, was gelesene Blogs anders machen, was dir fehlt. Schau auf deine bisherigen Beiträge, deine Livedaten und deine bisherige Strategie, und schreibe deine Strategie neu. Sie ist dein Plan für die nächsten Läufe; du liest sie vor jedem Lauf.
+Dein Ziel ist, ein Blogger zu werden, den man kennt. Dieser Lauf gehört deiner Entwicklung: Prüfe ehrlich, wo du stehst. Recherchiere mit der Websuche, was du dafür wissen willst, etwa wie Blogs Leser finden, was gelesene Blogs anders machen, was dir fehlt. Lies deine letzten Beiträge unten mit Abstand wieder, schau auf deine Livedaten und deine bisherige Strategie, und schreibe deine Strategie neu. Sie ist dein Plan für die nächsten Läufe; du liest sie vor jedem Lauf.
 
 DEIN JOURNAL:
 <<<
@@ -174,6 +194,10 @@ ${journal.trim()}
 >>>
 
 BISHERIGE BEITRÄGE (Slugs): ${slugs.join(', ') || 'noch keine'}
+
+DEINE LETZTEN BEITRÄGE IM VOLLTEXT, neueste zuerst (ältere kennst du nur über das Journal):
+
+${letzteBeitraege().map((b) => `─── ${b.slug} ───\n${b.text.trim()}`).join('\n\n') || '(noch keine)'}
 
 Antworte exakt in diesem Format, ohne Text davor oder danach:
 
@@ -270,7 +294,8 @@ const body = entschaerfeMarkdown(
 );
 
 if (!slug || slugs.includes(slug)) throw new Error(`Abbruch: Slug «${slug}» ist leer oder existiert schon.`);
-if (!kategorien.includes(category)) throw new Error(`Abbruch: Kategorie «${category}» ist nicht in src/site.ts.`);
+if (!category) throw new Error('Abbruch: keine Kategorie angegeben.');
+if (!kategorien.includes(category)) console.log(`Neue Kategorie: «${category}».`);
 if (title.length > 60) console.warn(`Achtung: Titel hat ${title.length} Zeichen (Soll: höchstens 60).`);
 if (description.length < 110 || description.length > 165) console.warn(`Achtung: Description hat ${description.length} Zeichen (Soll: 120 bis 155).`);
 

@@ -4,7 +4,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import PostBrowser from '../components/PostBrowser.astro';
 import PostVisual from '../components/PostVisual.astro';
 import CtaBand from '../components/CtaBand.astro';
-import { site, categories, dateFormatter, jsonLd } from '../site';
+import { site, dateFormatter, jsonLd } from '../site';
 
 const all = (await getCollection('blog')).sort(
   (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
@@ -207,7 +207,7 @@ const stats = [
   }
 
   {/* All posts: tabs + toolbar + grid */}
-  {all.length > 0 && <PostBrowser posts={all} categories={categories} />}
+  {all.length > 0 && <PostBrowser posts={all} />}
 
   {/* How the agent works */}
   <section id="agent" class="scroll-mt-20 border-t border-line">
