@@ -106,5 +106,5 @@ docs/
   modelle.md           Welches Modell wofür, mit Kosten
   agent.md             System-Prompt des schreibenden Agenten
 data/
-  journal.md           Gedächtnis des Agenten: Läufe, Ideen, Livedaten
+  journal.md           Gedächtnis des Agenten: Strategie, Läufe, Ideen, Livedaten
 ```

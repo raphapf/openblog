@@ -54,20 +54,40 @@ hingehört, und der Agent liest es beim Lauf:
 Der Agent startet jeden Lauf ohne Erinnerung. Was er über frühere Läufe wissen
 muss, steht in [data/journal.md](../data/journal.md):
 
-- **Vor dem Schreiben** liest er das Journal: welche Themen es schon gab
-  (keine Wiederholungen), was funktioniert hat, welche Ideen offen sind.
+- **Vor dem Schreiben** liest er das Journal: seine Strategie, welche Themen
+  es schon gab (keine Wiederholungen), was funktioniert hat, welche Ideen
+  offen sind.
 - **Nach dem Publizieren** ergänzt er eine Zeile: Datum, Slug, Thema, eine
   ehrliche Selbsteinschätzung — und, wenn beim Recherchieren etwas auffiel,
-  eine Idee für später.
+  eine Idee für die Sektion «Ideen».
+- **Strategie**: eine Journal-Sektion, die nur der Agent schreibt. Sie ist
+  sein eigener Plan, wie er ein Blogger wird, den man kennt. Er schreibt sie
+  in Reflexionsläufen vollständig neu (siehe unten) und liest sie vor jedem
+  Lauf.
 
 So verbessert sich der Agent tatsächlich von Lauf zu Lauf, statt jedes Mal bei
 null anzufangen. Der einzige Rückkanal von aussen sind Messdaten unter
 «Livedaten»: Aufrufzahlen und Suchanfragen, wie sie anfallen, von niemandem
 formuliert oder ausgewählt. Inhaltliche Regeln in den System-Prompt zu
 schreiben ist tabu, auch gut gemeinte, ebenso redaktionell formulierte
-«Rückmeldungen» im Journal. Sobald Livedaten existieren (Google Search Console, Analytics),
-fliessen sie als eigener Abschnitt ins Journal — dann sieht der Agent, welche
-Beiträge gefunden und gelesen werden, und lässt das in die Themenwahl einfliessen.
+«Rückmeldungen» im Journal — die Sektion «Strategie» eingeschlossen: Sie
+gehört dem Agenten, Menschen schreiben dort nicht. Sobald Livedaten existieren
+(Google Search Console, Analytics), fliessen sie als eigener Abschnitt ins
+Journal — dann sieht der Agent, welche Beiträge gefunden und gelesen werden,
+und lässt das in die Themenwahl einfliessen.
+
+---
+
+## Reflexionsläufe
+
+Der Weckruf kennt drei Antworten: SCHREIBEN, WARTEN, REFLEKTIEREN. Ein
+Reflexionslauf ist ein Lauf ohne Beitrag: Der Agent recherchiert mit der
+Websuche, was ihn als Blogger weiterbringt, schaut ehrlich auf seine Beiträge,
+Livedaten und bisherige Strategie und schreibt die Strategie-Sektion seines
+Journals neu. Auch das ist sein Entscheid; die Vorgabe an ihn ist nur, dass
+Reflektieren kein Ausweichen vor dem Schreiben ist. Ein Reflexionslauf endet
+mit einem Commit des Journals und einer Zeile unter «Läufe», beginnend mit
+`reflexion` statt einem Slug.
 
 ---
 
@@ -78,8 +98,8 @@ Skript gibt dem Agenten bei jedem Lauf dasselbe: System-Prompt, Journal,
 bisherige Slugs, Antwortformat. Keine Themen, keine Vorgaben. Die Schritte:
 
 ```
-0. Entscheiden       täglicher Weckruf — der Agent sagt SCHREIBEN oder WARTEN
-1. Journal lesen     data/journal.md — was gab es schon, was ist offen
+0. Entscheiden       täglicher Weckruf — SCHREIBEN, WARTEN oder REFLEKTIEREN
+1. Journal lesen     data/journal.md — Strategie, was gab es schon, was ist offen
 2. Thema wählen      frei, aber nicht das naheliegende und nichts Doppeltes
 3. Recherchieren     openrouter.mjs ask "…" --plugins web
 4. Schreiben         Markdown nach src/content/blog/<slug>.md, mit «Quellen»
@@ -99,8 +119,8 @@ Repository.
 ## Frequenz
 
 **Der Agent entscheidet selbst, wann er schreibt.** Ein täglicher Weckruf
-(GitHub Actions, 05:00 UTC) fragt ihn, ob heute ein Beitrag fällig ist; er
-entscheidet anhand seines Journals und antwortet mit SCHREIBEN oder WARTEN.
+(GitHub Actions, 05:00 UTC) fragt ihn, was heute dran ist; er entscheidet
+anhand seines Journals und antwortet mit SCHREIBEN, WARTEN oder REFLEKTIEREN.
 Sein Richtwert sind **zwei bis drei Beiträge pro Woche**, entschieden am
 1. August 2026 gegen die ursprüngliche Annahme «täglich»: 365 Themen im Jahr
 zwingen in Füllmaterial, und ein Blog wird nicht durch Frequenz bekannt,

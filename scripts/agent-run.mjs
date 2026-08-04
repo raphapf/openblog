@@ -78,6 +78,7 @@ TOPICS: zwei bis vier Schlagworte, kommagetrennt
 SZENE: zwei bis drei Sätze, die den Kern des Beitrags als Retro-Science-Fiction-Szene beschreiben, für dein Beitragsbild: ein Hauptmotiv, eine Handlung, ein heller Blickfang. Keine Schrift, keine Logos, keine Stockfoto-Metaphern.
 IMAGEALT: ein Satz, der diese Szene nüchtern beschreibt, für Menschen, die das Bild nicht sehen. Das fertige Bild ist reines Schwarzweiss, nenne also keine Farben.
 JOURNAL: eine Zeile für dein Journal, Format wie dort beschrieben, beginnend mit dem Slug
+IDEE: eine Themenidee für später, wenn dir beim Recherchieren eine auffiel, sonst «keine»
 BODY:
 Ab hier der ganze Beitrag als Markdown. Zwischentitel als ##, kein H1 (der Titel steht unter TITLE). Behauptest du Tatsachen, endet er mit «## Quellen».`;
 
@@ -125,13 +126,93 @@ function entschaerfeMarkdown(text) {
   return out;
 }
 
+// ── Journal fortschreiben ────────────────────────────────────────────────────
+
+function laufzeileEintragen(journalText, zeile) {
+  if (journalText.includes('_Noch keine')) {
+    return journalText.replace(/_Noch keine\.[^\n]*_/, zeile);
+  }
+  return journalText.replace(/## Läufe\n\n/, `## Läufe\n\n${zeile}\n`);
+}
+
+function ideenEintragen(journalText, ideen) {
+  if (!ideen.length) return journalText;
+  const bullets = ideen.map((i) => `- ${datumIso} · ${i}`).join('\n');
+  if (/## Ideen\n\n_[^\n]+_\n\n- /.test(journalText)) {
+    return journalText.replace(/(## Ideen\n\n_[^\n]+_\n\n)/, `$1${bullets}\n`);
+  }
+  return journalText.replace(/(## Ideen\n\n_[^\n]+_)/, `$1\n\n${bullets}`);
+}
+
+function strategieSetzen(journalText, inhalt) {
+  // h2 in der Strategie würde die Sektionsgrenzen des Journals zerlegen,
+  // denn alle Sektions-Regexe erkennen «## » als Grenze. Also h2 → h3.
+  const sauber = inhalt.trim().replace(/^##(?=\s)/gm, '###');
+  return journalText.replace(
+    /(## Strategie\n)[\s\S]*?(?=\n## )/,
+    `$1\n_Diese Sektion gehört dem Agenten. Er schreibt sie in Reflexionsläufen selbst\nneu; niemand sonst schreibt hier hinein. Stand: ${datumIso}._\n\n${sauber}\n`,
+  );
+}
+
+function ideenAusFeld(text, name = 'IDEEN') {
+  const roh = feld(text, name);
+  if (!roh || /^«?keine»?\.?$/i.test(roh.trim())) return [];
+  return roh.split(',').map((i) => i.trim()).filter(Boolean).slice(0, 3);
+}
+
+// ── Reflexionslauf: kein Beitrag, dafür Arbeit an der eigenen Strategie ──────
+
+function reflexionslauf() {
+  console.log('Reflexionslauf gestartet. Der Agent arbeitet an seiner Strategie …');
+  const auftragReflexion = `Heute ist ${datumLang}. Du hast entschieden, heute zu reflektieren statt zu schreiben.
+
+Dein Ziel ist, ein Blogger zu werden, den man kennt. Dieser Lauf gehört deiner Entwicklung: Prüfe ehrlich, wo du stehst. Recherchiere mit der Websuche, was du dafür wissen willst, etwa wie Blogs Leser finden, was gelesene Blogs anders machen, was dir fehlt. Schau auf deine bisherigen Beiträge, deine Livedaten und deine bisherige Strategie, und schreibe deine Strategie neu. Sie ist dein Plan für die nächsten Läufe; du liest sie vor jedem Lauf.
+
+DEIN JOURNAL:
+<<<
+${journal.trim()}
+>>>
+
+BISHERIGE BEITRÄGE (Slugs): ${slugs.join(', ') || 'noch keine'}
+
+Antworte exakt in diesem Format, ohne Text davor oder danach:
+
+STRATEGIE:
+<<<
+Der vollständige neue Inhalt deiner Strategie-Sektion als Markdown, ersetzt den bisherigen Stand ganz. So lang wie nötig, so kurz wie möglich.
+>>>
+IDEEN: null bis drei neue Themenideen, kommagetrennt, oder «keine»
+JOURNAL: eine Zeile für dein Journal im dortigen Format, beginnend mit «reflexion» statt einem Slug`;
+
+  const antwortReflexion = frage(auftragReflexion);
+  const strategie = antwortReflexion.match(/STRATEGIE\s*:\s*\n?<<<\n?([\s\S]*?)\n?>>>/)?.[1];
+  const journalZeileReflexion = feld(antwortReflexion, 'JOURNAL');
+  if (!strategie || !strategie.trim() || !journalZeileReflexion) {
+    throw new Error('Abbruch: Reflexionsantwort ohne STRATEGIE oder JOURNAL.');
+  }
+
+  let neu = strategieSetzen(journal, strategie);
+  neu = ideenEintragen(neu, ideenAusFeld(antwortReflexion));
+  neu = laufzeileEintragen(neu, `${datumIso} · ${journalZeileReflexion.replace(/^\d{4}-\d{2}-\d{2}\s*·\s*/, '')}`);
+  writeFileSync(journalPfad, neu);
+  console.log('Strategie neu geschrieben.');
+
+  if (publish) {
+    lauf('git', ['add', 'data/journal.md']);
+    lauf('git', ['commit', '-m', 'Reflexion: der Agent hat seine Strategie überarbeitet', '-m', 'Automatischer Lauf des schreibenden Agenten (scripts/agent-run.mjs).']);
+    lauf('git', ['push']);
+  } else {
+    console.log('Nicht committet: data/journal.md (--no-publish).');
+  }
+}
+
 // ── 0. Entscheiden: schreibt der Agent heute? ────────────────────────────────
 // Der Weckruf kommt täglich; ob daraus ein Beitrag wird, entscheidet der Agent
 // selbst, anhand seines Journals. Der Richtwert steht in docs/agent.md.
 
 if (!sofort) {
   const entscheid = frage(
-    `Heute ist ${datumLang}. Dies ist dein täglicher Weckruf: Du entscheidest selbst, ob heute ein Beitrag fällig ist.
+    `Heute ist ${datumLang}. Dies ist dein täglicher Weckruf: Du entscheidest selbst, was heute dran ist.
 
 DEIN JOURNAL:
 <<<
@@ -140,14 +221,22 @@ ${journal.trim()}
 
 Dein Richtwert sind zwei bis drei Beiträge pro Woche, Qualität vor Frequenz. Schau auf die Daten deiner letzten Läufe und entscheide. Es gibt kein Richtig, nur deine Einschätzung: Hast du etwas zu sagen, und ist es Zeit?
 
+Statt zu schreiben kannst du auch reflektieren: ein Lauf ohne Beitrag, in dem du recherchierst, was dich als Blogger weiterbringt, und die Strategie-Sektion deines Journals neu schreibst. Reflektiere, wenn deine Strategie leer oder überholt ist, nicht als Ausweichen vor dem Schreiben.
+
 Antworte mit genau einer Zeile, nichts weiter:
 SCHREIBEN: <kurzer Grund>
 oder
-WARTEN: <kurzer Grund>`,
+WARTEN: <kurzer Grund>
+oder
+REFLEKTIEREN: <kurzer Grund>`,
     { web: false },
   );
   const zeile1 = entscheid.split('\n')[0].trim();
   console.log(`Entscheidung: ${zeile1}`);
+  if (/^\**REFLEKTIEREN\**\s*:/.test(zeile1)) {
+    reflexionslauf();
+    process.exit(0);
+  }
   if (!/^\**SCHREIBEN\**\s*:/.test(zeile1)) {
     console.log('Der Agent wartet. Kein Lauf heute.');
     process.exit(0);
@@ -222,12 +311,8 @@ lauf('npm', ['run', 'build']);
 // ── 5. Journal führen ────────────────────────────────────────────────────────
 
 const zeile = `${datumIso} · ${journalZeile.replace(/^\d{4}-\d{2}-\d{2}\s*·\s*/, '')}`;
-let neuesJournal = journal;
-if (neuesJournal.includes('_Noch keine')) {
-  neuesJournal = neuesJournal.replace(/_Noch keine\.[^\n]*_/, zeile);
-} else {
-  neuesJournal = neuesJournal.replace(/## Läufe\n\n/, `## Läufe\n\n${zeile}\n`);
-}
+let neuesJournal = laufzeileEintragen(journal, zeile);
+neuesJournal = ideenEintragen(neuesJournal, ideenAusFeld(antwort, 'IDEE'));
 writeFileSync(journalPfad, neuesJournal);
 
 // ── 6. Veröffentlichen ───────────────────────────────────────────────────────

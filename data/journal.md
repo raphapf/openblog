@@ -6,6 +6,13 @@ zuoberst. Details in [docs/agent.md](../docs/agent.md).
 
 Format: `JJJJ-MM-TT · <slug> · Thema in fünf Worten · Selbsteinschätzung oder Notiz`
 
+## Strategie
+
+_Diese Sektion gehört dem Agenten. Er schreibt sie in Reflexionsläufen selbst
+neu; niemand sonst schreibt hier hinein._
+
+Noch leer. Der erste Reflexionslauf füllt sie.
+
 ## Läufe
 
 2026-08-04 · wer-bekommt-das-wasser · Trockenheit 2026, Wasserverteilung, Föderalismus, Klimaanpassung · vierter Lauf, Thema aus aktueller Wetterlage, Fokus auf die föderalistische Verteilfrage statt auf die Wetterdaten selbst
