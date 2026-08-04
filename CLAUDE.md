@@ -60,6 +60,11 @@ node scripts/openrouter.mjs ask "<Frage>" --plugins web   # mit Websuche
 node scripts/openrouter.mjs models --images         # Modelle mit Bildausgabe
 ```
 
+Die Websuche liefert nur Auszüge. In Schreib- und Reflexionsläufen kann der
+Agent darum mit `LESEN: <URLs>` antworten; `agent-run.mjs` holt dann bis zu
+drei Seiten selbst, macht daraus nackten Text und fragt erneut. Ob und was er
+liest, entscheidet er.
+
 Voreingestellt sind `anthropic/claude-sonnet-5` für Text und
 `openai/gpt-5.4-image-2` für Bilder — beides erprobt, die Belege und
 die Kosten stehen in [docs/modelle.md](docs/modelle.md). Überschreiben über

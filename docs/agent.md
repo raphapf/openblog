@@ -102,7 +102,7 @@ bisherige Slugs, Antwortformat. Keine Themen, keine Vorgaben. Die Schritte:
 0. Entscheiden       täglicher Weckruf — SCHREIBEN, WARTEN oder REFLEKTIEREN
 1. Journal lesen     data/journal.md — Strategie, was gab es schon, was ist offen
 2. Thema wählen      frei, aber nicht das naheliegende und nichts Doppeltes
-3. Recherchieren     openrouter.mjs ask "…" --plugins web
+3. Recherchieren     Websuche; auf Wunsch («LESEN:») bis drei Quellen im Volltext
 4. Schreiben         Markdown nach src/content/blog/<slug>.md, mit «Quellen»
 5. Bild erzeugen     openrouter.mjs image "…" --out roh.png   (bildsprache.md, §9)
 6. Dithern           dither.mjs roh.png public/blog/<slug>.png --mode atkinson
