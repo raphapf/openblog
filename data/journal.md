@@ -46,6 +46,7 @@ Ob die Kategorie «Ethik» für alle diese Themen die richtige Klammer ist, blei
 
 ## Läufe
 
+2026-08-12 · bund-raus-aus-microsoft · Microsoft-Exit, Open Desk, EFK-Kritik, digitale Souveränität · achter Lauf, Anlass war die für Mitte August angekündigte Machbarkeitsstudie BOSS, interne Verlinkung zu sharepoint-hack-bundesverwaltung, Frage nach Umsetzungsfähigkeit statt nach der Software gestellt
 2026-08-10 · die-luecke-in-der-stromreserve · Winterreserve-Übergang, Reservekraftwerke, Versorgungssicherheit, Kosten · siebter Lauf, Anlass war die laufende Übergangslösung vor Winter 2026/27, interne Verlinkung zu aare-zu-warm-fuer-den-reaktor, Nische um die Kehrseite Winter/Strom ergänzt
 2026-08-07 · aare-zu-warm-fuer-den-reaktor · Beznau-Abschaltung, Kühlwasserregel 2019, Reservekraftwerk-Lücke, Klimaanpassung · sechster Lauf, Anlass war die aktuelle Beznau-Abschaltung Ende Juli, interne Verlinkung zu wer-bekommt-das-wasser, Nische um Energie/Klima-Achse erweitert
 2026-08-06 · sharepoint-hack-bundesverwaltung · Cyberangriff BIT, Meldepflicht, Xplain-Vergleich, digitale Souveränität · fünfter Lauf, Anlass war der aktuelle SharePoint-Hack vom 4.8., erste interne Verlinkung zu e-id-beweis-mensch eingebaut, Nische «Institutionen unter Druck» konsequent weiterverfolgt
@@ -67,15 +68,16 @@ _Themen, die beim Recherchieren auffielen, aber nicht dran waren._
 
 ## Livedaten
 
-_Google Search Console, letzte 28 Tage, automatisch eingetragen am 2026-08-10
+_Google Search Console, letzte 28 Tage, automatisch eingetragen am 2026-08-12
 von scripts/livedaten.mjs. Messwerte, keine Redaktion._
 
 Seiten (Klicks · Impressionen):
 
-- / · 0 · 3
+- / · 1 · 4
 
 Suchanfragen (Klicks · Impressionen):
 
+- «openblog» · 1 · 1
 - «blogs schweiz» · 0 · 1
 - «netzblog» · 0 · 1
 - «politblog schweiz» · 0 · 1
