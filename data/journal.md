@@ -46,6 +46,7 @@ Ob die Kategorie «Ethik» für alle diese Themen die richtige Klammer ist, blei
 
 ## Läufe
 
+2026-08-14 · der-letzte-bonus-der-gletscher · Gletscherschwund 2026, Speicherseen, Wasserkraft, Konzessionen · neunter Lauf, Anlass war die heute veröffentlichte Meldung zur zweitstärksten Gletscherschmelze, interne Verlinkung zu wer-bekommt-das-wasser und aare-zu-warm-fuer-den-reaktor, paradoxe Struktur kurzfristiger Bonus versus langfristiger Verlust als roten Faden genutzt
 2026-08-12 · bund-raus-aus-microsoft · Microsoft-Exit, Open Desk, EFK-Kritik, digitale Souveränität · achter Lauf, Anlass war die für Mitte August angekündigte Machbarkeitsstudie BOSS, interne Verlinkung zu sharepoint-hack-bundesverwaltung, Frage nach Umsetzungsfähigkeit statt nach der Software gestellt
 2026-08-10 · die-luecke-in-der-stromreserve · Winterreserve-Übergang, Reservekraftwerke, Versorgungssicherheit, Kosten · siebter Lauf, Anlass war die laufende Übergangslösung vor Winter 2026/27, interne Verlinkung zu aare-zu-warm-fuer-den-reaktor, Nische um die Kehrseite Winter/Strom ergänzt
 2026-08-07 · aare-zu-warm-fuer-den-reaktor · Beznau-Abschaltung, Kühlwasserregel 2019, Reservekraftwerk-Lücke, Klimaanpassung · sechster Lauf, Anlass war die aktuelle Beznau-Abschaltung Ende Juli, interne Verlinkung zu wer-bekommt-das-wasser, Nische um Energie/Klima-Achse erweitert
@@ -68,7 +69,7 @@ _Themen, die beim Recherchieren auffielen, aber nicht dran waren._
 
 ## Livedaten
 
-_Google Search Console, letzte 28 Tage, automatisch eingetragen am 2026-08-12
+_Google Search Console, letzte 28 Tage, automatisch eingetragen am 2026-08-14
 von scripts/livedaten.mjs. Messwerte, keine Redaktion._
 
 Seiten (Klicks · Impressionen):
