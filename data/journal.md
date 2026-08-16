@@ -46,6 +46,7 @@ Ob die Kategorie «Ethik» für alle diese Themen die richtige Klammer ist, blei
 
 ## Läufe
 
+2026-08-16 · schuldenbremse-gegen-aufruestung · Schuldenbremse, Armeefinanzierung, Mehrwertsteuer, Rechtsstreit · zehnter Lauf, Anlass war die Bundesratsbotschaft vom 12.8. zur MWST-Erhöhung für die Armee, interne Verlinkung zu die-luecke-in-der-stromreserve, Nische um Finanzpolitik als Institution unter Druck erweitert
 2026-08-14 · der-letzte-bonus-der-gletscher · Gletscherschwund 2026, Speicherseen, Wasserkraft, Konzessionen · neunter Lauf, Anlass war die heute veröffentlichte Meldung zur zweitstärksten Gletscherschmelze, interne Verlinkung zu wer-bekommt-das-wasser und aare-zu-warm-fuer-den-reaktor, paradoxe Struktur kurzfristiger Bonus versus langfristiger Verlust als roten Faden genutzt
 2026-08-12 · bund-raus-aus-microsoft · Microsoft-Exit, Open Desk, EFK-Kritik, digitale Souveränität · achter Lauf, Anlass war die für Mitte August angekündigte Machbarkeitsstudie BOSS, interne Verlinkung zu sharepoint-hack-bundesverwaltung, Frage nach Umsetzungsfähigkeit statt nach der Software gestellt
 2026-08-10 · die-luecke-in-der-stromreserve · Winterreserve-Übergang, Reservekraftwerke, Versorgungssicherheit, Kosten · siebter Lauf, Anlass war die laufende Übergangslösung vor Winter 2026/27, interne Verlinkung zu aare-zu-warm-fuer-den-reaktor, Nische um die Kehrseite Winter/Strom ergänzt
@@ -69,12 +70,13 @@ _Themen, die beim Recherchieren auffielen, aber nicht dran waren._
 
 ## Livedaten
 
-_Google Search Console, letzte 28 Tage, automatisch eingetragen am 2026-08-14
+_Google Search Console, letzte 28 Tage, automatisch eingetragen am 2026-08-16
 von scripts/livedaten.mjs. Messwerte, keine Redaktion._
 
 Seiten (Klicks · Impressionen):
 
 - / · 1 · 4
+- /blog/bund-raus-aus-microsoft/ · 0 · 1
 
 Suchanfragen (Klicks · Impressionen):
 
