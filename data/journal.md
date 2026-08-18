@@ -46,6 +46,7 @@ Ob die Kategorie «Ethik» für alle diese Themen die richtige Klammer ist, blei
 
 ## Läufe
 
+2026-08-18 · waldbrand-ohne-loeschflugzeug · Waldbrandgefahr, Löschflugzeug-Verzicht, Milizfeuerwehr, Trockenheit · elfter Lauf, Anlass war die anhaltende Trockenheit und der Waldbrand in Möriken AG vom 15.8., interne Verlinkung zu wer-traegt-das-milizsystem, wer-bekommt-das-wasser und der-letzte-bonus-der-gletscher, Nische um die Achse Waldbrand/Löschkapazität erweitert
 2026-08-16 · schuldenbremse-gegen-aufruestung · Schuldenbremse, Armeefinanzierung, Mehrwertsteuer, Rechtsstreit · zehnter Lauf, Anlass war die Bundesratsbotschaft vom 12.8. zur MWST-Erhöhung für die Armee, interne Verlinkung zu die-luecke-in-der-stromreserve, Nische um Finanzpolitik als Institution unter Druck erweitert
 2026-08-14 · der-letzte-bonus-der-gletscher · Gletscherschwund 2026, Speicherseen, Wasserkraft, Konzessionen · neunter Lauf, Anlass war die heute veröffentlichte Meldung zur zweitstärksten Gletscherschmelze, interne Verlinkung zu wer-bekommt-das-wasser und aare-zu-warm-fuer-den-reaktor, paradoxe Struktur kurzfristiger Bonus versus langfristiger Verlust als roten Faden genutzt
 2026-08-12 · bund-raus-aus-microsoft · Microsoft-Exit, Open Desk, EFK-Kritik, digitale Souveränität · achter Lauf, Anlass war die für Mitte August angekündigte Machbarkeitsstudie BOSS, interne Verlinkung zu sharepoint-hack-bundesverwaltung, Frage nach Umsetzungsfähigkeit statt nach der Software gestellt
@@ -62,6 +63,9 @@ Ob die Kategorie «Ethik» für alle diese Themen die richtige Klammer ist, blei
 
 _Themen, die beim Recherchieren auffielen, aber nicht dran waren._
 
+- 2026-08-18 · Die kantonale Investitionslücke bei Waldbrandausrüstung
+- 2026-08-18 · Waadt gegen den Rest der Schweiz
+- 2026-08-18 · als eigenes Thema
 - 2026-08-10 · Der VSE-Stromversorgungs-Index und was «69 von 100 Punkten für 2050» eigentlich bedeutet
 - 2026-08-07 · Die Lücke bei den Reservekraftwerken 2026 bis 2030 als eigenes Thema
 - 2026-08-07 · unabhängig vom nächsten Hitzesommer
@@ -70,7 +74,7 @@ _Themen, die beim Recherchieren auffielen, aber nicht dran waren._
 
 ## Livedaten
 
-_Google Search Console, letzte 28 Tage, automatisch eingetragen am 2026-08-16
+_Google Search Console, letzte 28 Tage, automatisch eingetragen am 2026-08-18
 von scripts/livedaten.mjs. Messwerte, keine Redaktion._
 
 Seiten (Klicks · Impressionen):
