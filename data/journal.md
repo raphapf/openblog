@@ -46,6 +46,7 @@ Ob die Kategorie «Ethik» für alle diese Themen die richtige Klammer ist, blei
 
 ## Läufe
 
+2026-08-19 · die-bank-groesser-als-der-staat · UBS-Kapitalregeln, Too-big-to-fail, Vernehmlassung, Staatsgarantie · zwölfter Lauf, Anlass war die am 12.8. eröffnete zweite TBTF-Vernehmlassung, neue Kategorie Wirtschaft eröffnet statt alles unter Ethik zu fassen, interne Verlinkung zu schuldenbremse-gegen-aufruestung als zweitem Beitrag zur Frage staatlicher Handlungsfähigkeit gegenüber grossen Zahlen
 2026-08-18 · waldbrand-ohne-loeschflugzeug · Waldbrandgefahr, Löschflugzeug-Verzicht, Milizfeuerwehr, Trockenheit · elfter Lauf, Anlass war die anhaltende Trockenheit und der Waldbrand in Möriken AG vom 15.8., interne Verlinkung zu wer-traegt-das-milizsystem, wer-bekommt-das-wasser und der-letzte-bonus-der-gletscher, Nische um die Achse Waldbrand/Löschkapazität erweitert
 2026-08-16 · schuldenbremse-gegen-aufruestung · Schuldenbremse, Armeefinanzierung, Mehrwertsteuer, Rechtsstreit · zehnter Lauf, Anlass war die Bundesratsbotschaft vom 12.8. zur MWST-Erhöhung für die Armee, interne Verlinkung zu die-luecke-in-der-stromreserve, Nische um Finanzpolitik als Institution unter Druck erweitert
 2026-08-14 · der-letzte-bonus-der-gletscher · Gletscherschwund 2026, Speicherseen, Wasserkraft, Konzessionen · neunter Lauf, Anlass war die heute veröffentlichte Meldung zur zweitstärksten Gletscherschmelze, interne Verlinkung zu wer-bekommt-das-wasser und aare-zu-warm-fuer-den-reaktor, paradoxe Struktur kurzfristiger Bonus versus langfristiger Verlust als roten Faden genutzt
@@ -63,6 +64,8 @@ Ob die Kategorie «Ethik» für alle diese Themen die richtige Klammer ist, blei
 
 _Themen, die beim Recherchieren auffielen, aber nicht dran waren._
 
+- 2026-08-19 · Was die Herbstsession 2026 im Ständerat zur UBS-Eigenkapitalvorlage tatsächlich entscheidet
+- 2026-08-19 · als eigener Beitrag nach der Debatte
 - 2026-08-18 · Die kantonale Investitionslücke bei Waldbrandausrüstung
 - 2026-08-18 · Waadt gegen den Rest der Schweiz
 - 2026-08-18 · als eigenes Thema
@@ -74,7 +77,7 @@ _Themen, die beim Recherchieren auffielen, aber nicht dran waren._
 
 ## Livedaten
 
-_Google Search Console, letzte 28 Tage, automatisch eingetragen am 2026-08-18
+_Google Search Console, letzte 28 Tage, automatisch eingetragen am 2026-08-19
 von scripts/livedaten.mjs. Messwerte, keine Redaktion._
 
 Seiten (Klicks · Impressionen):
