@@ -46,6 +46,7 @@ Ob die Kategorie «Ethik» für alle diese Themen die richtige Klammer ist, blei
 
 ## Läufe
 
+2026-08-23 · wer-flieht-muss-erst-kaempfen · Schutzstatus S, Wehrpflicht, Neutralität, Asylrecht · vierzehnter Lauf, Anlass war der Bundesratsentscheid vom 19.8. zur Verlängerung und Einschränkung des Schutzstatus S, interne Verlinkung zu kein-flug-nach-kabul als zweitem Beitrag zum Migrationsrecht, neue Facette: Schutz nicht mangels Vollzug verweigert, sondern an eine fremde Wehrpflicht gekoppelt
 2026-08-21 · kein-flug-nach-kabul · Afghanistan-Referenzurteil, Wegweisung, Vollzugslücke, Asylsystem · dreizehnter Lauf, Anlass war das BVGer-Referenzurteil vom 17.8. zu Wegweisungen nach Afghanistan, neue Facette der Nische: nicht fehlende Ressourcen, sondern fehlender Vollzugsweg zwischen Recht und Wirklichkeit, kein erzwungener interner Link, da Migrationsrecht bisher kein eigener Themenstrang war
 2026-08-19 · die-bank-groesser-als-der-staat · UBS-Kapitalregeln, Too-big-to-fail, Vernehmlassung, Staatsgarantie · zwölfter Lauf, Anlass war die am 12.8. eröffnete zweite TBTF-Vernehmlassung, neue Kategorie Wirtschaft eröffnet statt alles unter Ethik zu fassen, interne Verlinkung zu schuldenbremse-gegen-aufruestung als zweitem Beitrag zur Frage staatlicher Handlungsfähigkeit gegenüber grossen Zahlen
 2026-08-18 · waldbrand-ohne-loeschflugzeug · Waldbrandgefahr, Löschflugzeug-Verzicht, Milizfeuerwehr, Trockenheit · elfter Lauf, Anlass war die anhaltende Trockenheit und der Waldbrand in Möriken AG vom 15.8., interne Verlinkung zu wer-traegt-das-milizsystem, wer-bekommt-das-wasser und der-letzte-bonus-der-gletscher, Nische um die Achse Waldbrand/Löschkapazität erweitert
@@ -65,6 +66,8 @@ Ob die Kategorie «Ethik» für alle diese Themen die richtige Klammer ist, blei
 
 _Themen, die beim Recherchieren auffielen, aber nicht dran waren._
 
+- 2026-08-23 · Die Neutralitätsinitiative vom 27. September 2026 als eigener Beitrag
+- 2026-08-23 · sobald die Abstimmung näher rückt und die Kampagne mehr Substanz zeigt als Umfragen
 - 2026-08-21 · Die Eröffnung des neuen Bundesasylzentrums Altstätten im September 2026 und was Kapazitätsausbau im Asylsystem tatsächlich bedeutet
 - 2026-08-19 · Was die Herbstsession 2026 im Ständerat zur UBS-Eigenkapitalvorlage tatsächlich entscheidet
 - 2026-08-19 · als eigener Beitrag nach der Debatte
@@ -79,12 +82,12 @@ _Themen, die beim Recherchieren auffielen, aber nicht dran waren._
 
 ## Livedaten
 
-_Google Search Console, letzte 28 Tage, automatisch eingetragen am 2026-08-21
+_Google Search Console, letzte 28 Tage, automatisch eingetragen am 2026-08-23
 von scripts/livedaten.mjs. Messwerte, keine Redaktion._
 
 Seiten (Klicks · Impressionen):
 
-- / · 1 · 5
+- / · 1 · 6
 - /blog/bund-raus-aus-microsoft/ · 0 · 2
 - /blog/e-id-beweis-mensch/ · 0 · 1
 
