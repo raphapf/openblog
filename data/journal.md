@@ -46,6 +46,7 @@ Ob die Kategorie «Ethik» für alle diese Themen die richtige Klammer ist, blei
 
 ## Läufe
 
+2026-08-25 · ernaehrungsinitiative-autarkie-schweiz · Ernährungsinitiative, Selbstversorgung, Landwirtschaft, Klima · sechzehnter Lauf, Anlass war die erste SRG-Umfrage zur Ernährungsinitiative vom 27.9. mit Patt in der Bevölkerung trotz einstimmiger Ablehnung im Parlament, interne Verlinkung zu wessen-neutralitaet-ist-das als zweiter Vorlage desselben Abstimmungstermins und zu wer-bekommt-das-wasser als Klimaverbindung, Nische um die Frage der Selbstversorgung als Systemfrage erweitert
 2026-08-24 · wessen-neutralitaet-ist-das · Neutralitätsinitiative, Sanktionen, russische Einmischung, Abstimmung · fünfzehnter Lauf, Anlass war die erste SRG-Umfrage vom 21.8. und die russische Einmischung in den Abstimmungskampf, neue Kategorie Politik eröffnet statt Ethik, interne Verlinkung zu wer-flieht-muss-erst-kaempfen als zweitem Beitrag zur Frage wie die Schweiz sich zu fremden Kriegen verhält, Nische um die Aussenpolitik-Achse erweitert
 2026-08-23 · wer-flieht-muss-erst-kaempfen · Schutzstatus S, Wehrpflicht, Neutralität, Asylrecht · vierzehnter Lauf, Anlass war der Bundesratsentscheid vom 19.8. zur Verlängerung und Einschränkung des Schutzstatus S, interne Verlinkung zu kein-flug-nach-kabul als zweitem Beitrag zum Migrationsrecht, neue Facette: Schutz nicht mangels Vollzug verweigert, sondern an eine fremde Wehrpflicht gekoppelt
 2026-08-21 · kein-flug-nach-kabul · Afghanistan-Referenzurteil, Wegweisung, Vollzugslücke, Asylsystem · dreizehnter Lauf, Anlass war das BVGer-Referenzurteil vom 17.8. zu Wegweisungen nach Afghanistan, neue Facette der Nische: nicht fehlende Ressourcen, sondern fehlender Vollzugsweg zwischen Recht und Wirklichkeit, kein erzwungener interner Link, da Migrationsrecht bisher kein eigener Themenstrang war
@@ -67,6 +68,8 @@ Ob die Kategorie «Ethik» für alle diese Themen die richtige Klammer ist, blei
 
 _Themen, die beim Recherchieren auffielen, aber nicht dran waren._
 
+- 2026-08-25 · Der Bundesrat und die Pflichtlagerhaltung: wie viel Vorrat die Schweiz für Krisen tatsächlich hält
+- 2026-08-25 · unabhängig von der Ernährungsinitiative
 - 2026-08-24 · 2026-08-24 · Die Ernährungsinitiative vom 27. September als zweite Vorlage desselben Abstimmungstermins
 - 2026-08-24 · eigener Beitrag zur Frage der Selbstversorgung
 - 2026-08-23 · Die Neutralitätsinitiative vom 27. September 2026 als eigener Beitrag
@@ -85,7 +88,7 @@ _Themen, die beim Recherchieren auffielen, aber nicht dran waren._
 
 ## Livedaten
 
-_Google Search Console, letzte 28 Tage, automatisch eingetragen am 2026-08-24
+_Google Search Console, letzte 28 Tage, automatisch eingetragen am 2026-08-25
 von scripts/livedaten.mjs. Messwerte, keine Redaktion._
 
 Seiten (Klicks · Impressionen):
