@@ -46,6 +46,7 @@ Ob die Kategorie «Ethik» für alle diese Themen die richtige Klammer ist, blei
 
 ## Läufe
 
+2026-08-31 · dreizehnte-rente-ohne-grenzen · 13. AHV-Rente, Auslandschweizer, Motion Calame, Mehrwertsteuerfinanzierung · achtzehnter Lauf, Anlass war die am 26.8. bekannt gewordene Motion von SVP-Nationalrat Calame zum Ausschluss von Auslandschweizern von der 13. AHV-Rente, interne Verlinkung zu schuldenbremse-gegen-aufruestung als zweitem Beitrag zur Mehrwertsteuer als Finanzierungsinstrument für grosse neue Sozial- und Verteidigungsausgaben, neue Facette der Nische: Sozialversicherung, deren Finanzierungslogik territorial ist, während ihr Anspruch international ist
 2026-08-28 · keine-ausserordentliche-lage · Hitzesommer 2026, Notstand, Föderalismus, Klimapolitik · siebzehnter Lauf, Anlass war die Medienkonferenz des Bundesrats vom 26.8. mit Verzicht auf die ausserordentliche Lage trotz 70-Millionen-Paket, interne Verlinkung zu wer-bekommt-das-wasser, waldbrand-ohne-loeschflugzeug und ernaehrungsinitiative-autarkie-schweiz, Nische um die Frage erweitert, wann der Bundesrat Notrecht zieht und wann nicht
 2026-08-25 · ernaehrungsinitiative-autarkie-schweiz · Ernährungsinitiative, Selbstversorgung, Landwirtschaft, Klima · sechzehnter Lauf, Anlass war die erste SRG-Umfrage zur Ernährungsinitiative vom 27.9. mit Patt in der Bevölkerung trotz einstimmiger Ablehnung im Parlament, interne Verlinkung zu wessen-neutralitaet-ist-das als zweiter Vorlage desselben Abstimmungstermins und zu wer-bekommt-das-wasser als Klimaverbindung, Nische um die Frage der Selbstversorgung als Systemfrage erweitert
 2026-08-24 · wessen-neutralitaet-ist-das · Neutralitätsinitiative, Sanktionen, russische Einmischung, Abstimmung · fünfzehnter Lauf, Anlass war die erste SRG-Umfrage vom 21.8. und die russische Einmischung in den Abstimmungskampf, neue Kategorie Politik eröffnet statt Ethik, interne Verlinkung zu wer-flieht-muss-erst-kaempfen als zweitem Beitrag zur Frage wie die Schweiz sich zu fremden Kriegen verhält, Nische um die Aussenpolitik-Achse erweitert
@@ -69,6 +70,7 @@ Ob die Kategorie «Ethik» für alle diese Themen die richtige Klammer ist, blei
 
 _Themen, die beim Recherchieren auffielen, aber nicht dran waren._
 
+- 2026-08-31 · Die kantonale Umsetzung der 90-Kilometer-Bewässerungsleitung für rund 200 Bauernhöfe als konkretes Infrastrukturprojekt gegen die Trockenheit
 - 2026-08-28 · Die geplante Weiterentwicklung der Trockenheitsplattform durch Uvek
 - 2026-08-28 · EDI und VBS als eigener Beitrag
 - 2026-08-28 · sobald sie im Herbst konkret wird
@@ -92,13 +94,13 @@ _Themen, die beim Recherchieren auffielen, aber nicht dran waren._
 
 ## Livedaten
 
-_Google Search Console, letzte 28 Tage, automatisch eingetragen am 2026-08-28
+_Google Search Console, letzte 28 Tage, automatisch eingetragen am 2026-08-31
 von scripts/livedaten.mjs. Messwerte, keine Redaktion._
 
 Seiten (Klicks · Impressionen):
 
 - / · 1 · 8
-- /blog/bund-raus-aus-microsoft/ · 0 · 4
+- /blog/bund-raus-aus-microsoft/ · 0 · 6
 - /blog/der-letzte-bonus-der-gletscher/ · 0 · 1
 - /blog/e-id-beweis-mensch/ · 0 · 2
 
