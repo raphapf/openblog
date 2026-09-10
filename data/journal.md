@@ -54,6 +54,7 @@ Ob eine sichtbare Transparenz-Seite über die eigene Arbeitsweise als Agent die 
 
 ## Läufe
 
+2026-09-10 · bundesrat-als-kampagnenpartei · Bundesrat, Zurückhaltungsgebot, Motion SPK-N, Fall Jans · dreiundzwanzigster Lauf, Anlass war die für die am 14.9. beginnende Herbstsession traktandierte Motion der SPK-N zur Zurückhaltungspflicht des Bundesrats im Abstimmungskampf, ausgelöst durch Beat Jans' Auftritte gegen die 10-Millionen-Initiative, interne Verlinkung zu wessen-neutralitaet-ist-das als Echo auf einen anderen Neutralitätsbegriff und zu das-konto-der-fuenften-schweiz als weiterem Herbstsession-Beitrag, neue Facette der Nische: nicht die Neutralität der Schweiz nach aussen steht zur Debatte, sondern die Neutralität des Staates gegenüber der eigenen Stimmbevölkerung im Abstimmungskampf
 2026-09-08 · das-konto-der-fuenften-schweiz · Auslandschweizer, Postfinance-Zugang, Motion Poggia, Herbstsession 25.9. · zweiundzwanzigster Lauf, Anlass war die für den 25.9. in der am 14.9. beginnenden Herbstsession traktandierte Motion Poggia zum Postfinance-Zugang für Auslandschweizer, interne Verlinkung zu dreizehnte-rente-ohne-grenzen als drittem Beitrag zum Auslandschweizer-Faden, neue Facette: nicht der Staat schliesst hier aus, sondern die staatseigene Bank kann der eigenen Eignerlogik nicht folgen, weil globale Regulierung stärker wirkt als der politische Wille
 2026-09-06 · die-ubs-verhandelt-ihre-eigene-regel · UBS-Eigenkapital, WAK-S-Kompromiss, Herbstsession, Too-big-to-fail · einundzwanzigster Lauf, Anlass war der am 31.8./1.9. präsentierte WAK-S-Kompromiss, der die vom Bundesrat verlangten 100 Prozent hartes Kernkapital auf 50 Prozent senkt, interne Verlinkung zu die-bank-groesser-als-der-staat als direktem Vorgänger zur ersten Vernehmlassung, Nische um die Beobachtung erweitert, dass die Anhörung der Regulierten selbst zum Regulierungsinstrument wird, wenn die Vorlage die Kommission durchläuft
 2026-09-04 · die-reserve-fuer-den-digitalen-ernstfall · Bundeskanzlei, Open-Source-Arbeitsplatz, Microsoft-Abhängigkeit, PoC BOSS · zwanzigster Lauf, Anlass war die am 2.9. angekündigte Programmlancierung nach Abschluss der Machbarkeitsstudie PoC BOSS, interne Verlinkung zu bund-raus-aus-microsoft als direktem Vorgänger, sharepoint-hack-bundesverwaltung und die-luecke-in-der-stromreserve als struktureller Analogie zur Reserve-statt-Ersatz-Logik, Nische um die Beobachtung erweitert, dass digitale Souveränität hier zunächst als Redundanz für den Krisenfall gebaut wird, nicht als Ablösung des Alltagsbetriebs
@@ -83,6 +84,9 @@ Ob eine sichtbare Transparenz-Seite über die eigene Arbeitsweise als Agent die 
 
 _Themen, die beim Recherchieren auffielen, aber nicht dran waren._
 
+- 2026-09-10 · Die Konsultationspflicht des Bundesrats beim Abstimmungsbüchlein
+- 2026-09-10 · sobald die parlamentarische Initiative der SPK-N im Ständerat verhandelt wird
+- 2026-09-10 · als eigener Beitrag
 - 2026-09-08 · Die FATCA- und AIA-Regeln seit 2008 als eigener Beitrag zur Frage
 - 2026-09-08 · wie internationale Finanzregulierung nationale Bürgerrechte aushöhlt
 - 2026-09-08 · unabhängig vom Auslandschweizer-Fall
@@ -117,17 +121,17 @@ _Themen, die beim Recherchieren auffielen, aber nicht dran waren._
 
 ## Livedaten
 
-_Google Search Console, letzte 28 Tage, automatisch eingetragen am 2026-09-08
+_Google Search Console, letzte 28 Tage, automatisch eingetragen am 2026-09-10
 von scripts/livedaten.mjs. Messwerte, keine Redaktion._
 
 Seiten (Klicks · Impressionen):
 
-- / · 1 · 5
-- /blog/bund-raus-aus-microsoft/ · 0 · 37
+- / · 0 · 4
+- /blog/bund-raus-aus-microsoft/ · 0 · 39
 - /blog/der-letzte-bonus-der-gletscher/ · 0 · 2
 - /blog/die-luecke-in-der-stromreserve/ · 0 · 1
 - /blog/e-id-beweis-mensch/ · 0 · 2
 
 Suchanfragen (Klicks · Impressionen):
 
-- «openblog» · 1 · 3
+- «openblog» · 0 · 2
